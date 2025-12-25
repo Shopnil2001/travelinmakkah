@@ -3,14 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useSearchParams } from 'next/navigation';
-import { Check } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import api from '@/lib/api';
 import PackageCard from '../../../components/ui/packageCard';
 
 const HajjBookingSection = () => {
-  const searchParams = useSearchParams();
   const formRef = useRef(null);
   const currentYear = new Date().getFullYear();
 
@@ -24,30 +21,26 @@ const HajjBookingSection = () => {
     packageName: '',
   });
 
-  // Fetch packages and pre-select from URL
+  // Fetch packages (Hajj only)
   useEffect(() => {
     const fetchAndSync = async () => {
       try {
         const res = await api.get('/packages');
         const hajjOnly = res.data.filter((pkg) => pkg.category === 'Hajj');
         setPackages(hajjOnly);
-
-        const selected = searchParams.get('package');
-        if (selected) {
-          setFormData((prev) => ({ ...prev, packageName: selected }));
-        }
       } catch (error) {
         console.error('Error fetching packages:', error);
       }
     };
     fetchAndSync();
-  }, [searchParams]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Clicking a card scrolls and preselects
   const scrollToForm = (title) => {
     setFormData((prev) => ({ ...prev, packageName: title }));
     formRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -67,7 +60,7 @@ const HajjBookingSection = () => {
           mobile: formData.mobileNumber,
           email: formData.email,
           passport_no: formData.passportNo,
-          message: "No specific message provided.",
+          message: 'No specific message provided.',
           time: new Date().toLocaleString(),
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
@@ -135,8 +128,7 @@ const HajjBookingSection = () => {
                     name="packageName"
                     value={formData.packageName}
                     onChange={handleChange}
-                    disabled={!!searchParams.get('package')}
-                    className="w-full border border-gray-300 rounded-xl px-4 py-3.5 bg-emerald-50 disabled:bg-gray-100 font-medium text-gray-900 focus:ring-2 focus:ring-emerald-500 outline-none"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-3.5 bg-emerald-50 font-medium text-gray-900 focus:ring-2 focus:ring-emerald-500 outline-none"
                     required
                   >
                     <option value="">Select a Hajj Package*</option>

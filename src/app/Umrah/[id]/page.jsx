@@ -27,7 +27,7 @@ const PackageDetailsPage = () => {
         console.error(err);
       }
     };
-    fetchPackage();
+    if (id) fetchPackage();
   }, [id]);
 
   const handleChange = (e) => {
@@ -45,13 +45,13 @@ const PackageDetailsPage = () => {
         'YOUR_SERVICE_ID',
         'YOUR_TEMPLATE_ID',
         {
-           subject_title: `Hajj Booking: ${pkg.title}`, // Tells you which package
-    name: formData.fullName,
-    mobile: formData.mobileNumber,
-    email: formData.email,
-    passport_no: formData.passportNo,
-    message: "No specific message provided.", // Default text for the message field
-    time: new Date().toLocaleString()
+          subject_title: `Umrah Booking: ${pkg.title}`,
+          name: formData.fullName,
+          mobile: formData.mobileNumber,
+          email: formData.email,
+          passport_no: formData.passportNo,
+          message: 'No specific message provided.',
+          time: new Date().toLocaleString(),
         },
         'YOUR_PUBLIC_KEY'
       );
@@ -94,7 +94,6 @@ const PackageDetailsPage = () => {
             Price: BDT {pkg.price.toLocaleString()}
           </p>
 
-          {/* description from pkg */}
           {pkg.description && (
             <p className="text-[#5a6360] leading-relaxed">
               {pkg.description}
@@ -111,14 +110,13 @@ const PackageDetailsPage = () => {
           </div>
         </div>
 
-        {/* Right: Booking Form (same style as main section, fixed package) */}
+        {/* Right: Booking Form */}
         <div className="bg-[#f6fbf9] p-10 rounded-3xl border border-emerald-100 h-fit">
           <h2 className="text-2xl font-serif mb-6">
             Book this Package
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* fixed selected package */}
             <div className="bg-white border border-emerald-200 p-4 rounded-xl font-bold text-emerald-800">
               Selected: {pkg.title}
             </div>

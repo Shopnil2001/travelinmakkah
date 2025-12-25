@@ -3,14 +3,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { useSearchParams } from 'next/navigation';
-import { Check } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import api from '@/lib/api';
 import PackageCard from '../../../components/ui/packageCard';
 
 const UmrahBookingSection = () => {
-  const searchParams = useSearchParams();
   const formRef = useRef(null);
   const currentYear = new Date().getFullYear();
 
@@ -24,25 +21,19 @@ const UmrahBookingSection = () => {
     packageName: '',
   });
 
-  // Fetch packages & handle pre‑selection
+  // Fetch Umrah packages
   useEffect(() => {
     const fetchAndSync = async () => {
       try {
         const res = await api.get('/packages');
-       
-        const hajjOnly = res.data.filter((pkg) => pkg.category === 'Umrah');
-        setPackages(hajjOnly);
-
-        const selected = searchParams.get('package');
-        if (selected) {
-          setFormData((prev) => ({ ...prev, packageName: selected }));
-        }
+        const umrahOnly = res.data.filter((pkg) => pkg.category === 'Umrah');
+        setPackages(umrahOnly);
       } catch (error) {
         console.error('Fetch error:', error);
       }
     };
     fetchAndSync();
-  }, [searchParams]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -63,26 +54,24 @@ const UmrahBookingSection = () => {
         'YOUR_SERVICE_ID',
         'YOUR_TEMPLATE_ID',
         {
-          subject_title: `Umrah Booking: ${formData.packageName}`, // Tells you which package
-    name: formData.fullName,
-    mobile: formData.mobileNumber,
-    email: formData.email,
-    passport_no: formData.passportNo,
-    message: "No specific message provided.", // Default text for the message field
-    time: new Date().toLocaleString()
+          subject_title: `Umrah Booking: ${formData.packageName}`,
+          name: formData.fullName,
+          mobile: formData.mobileNumber,
+          email: formData.email,
+          passport_no: formData.passportNo,
+          message: 'No specific message provided.',
+          time: new Date().toLocaleString(),
         },
         'YOUR_PUBLIC_KEY'
       );
       alert('Application Received! We will contact you soon.');
-      if (!searchParams.get('package')) {
-        setFormData({
-          fullName: '',
-          mobileNumber: '',
-          email: '',
-          passportNo: '',
-          packageName: '',
-        });
-      }
+      setFormData({
+        fullName: '',
+        mobileNumber: '',
+        email: '',
+        passportNo: '',
+        packageName: '',
+      });
     } catch (err) {
       alert('Failed to send.');
     } finally {
@@ -98,13 +87,13 @@ const UmrahBookingSection = () => {
 
   return (
     <div className="bg-white">
-      {/* FORM SECTION (restored copy & style) */}
+      {/* FORM SECTION */}
       <section ref={formRef} className="py-16 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto border border-emerald-100 rounded-3xl overflow-hidden relative shadow-sm bg-white">
           {/* Floating Top Badge */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center bg-white px-5 py-2 border-x border-b border-emerald-100 rounded-b-2xl z-10 shadow-sm">
             <span className="bg-[#00a651] text-white px-2 py-0.5 rounded text-lg font-bold mr-2">
-             Umrah
+              Umrah
             </span>
             <span className="text-xl font-medium text-gray-800">
               Pilgrimage {currentYear}
@@ -115,15 +104,17 @@ const UmrahBookingSection = () => {
             {/* Left: text + form */}
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-serif text-[#2d4f43] leading-tight">
-                Where Your Dreams Find The  <br />
+                Where Your Dreams Find The <br />
                 with our{' '}
-                <span className="text-[#00a651]">
-                 Perfect Guidance
-                </span>
+                <span className="text-[#00a651]">Perfect Guidance</span>
               </h2>
 
               <p className="text-[#5a6360] text-base leading-relaxed max-w-lg">
-                Plan your Umrah with ease. Reserve your package today for a smooth and fulfilling pilgrimage. Travel In Makkah Bangladesh’s trusted Hajj & Umrah agency, offers multiple package options designed for your comfort and spiritual growth. Limited slots—act fast.
+                Plan your Umrah with ease. Reserve your package today for a
+                smooth and fulfilling pilgrimage. Travel In Makkah, Bangladesh’s
+                trusted Hajj &amp; Umrah agency, offers multiple package options
+                designed for your comfort and spiritual growth. Limited
+                slots—act fast.
               </p>
 
               <div className="pt-6">
@@ -132,16 +123,15 @@ const UmrahBookingSection = () => {
                 </h4>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* package dropdown (kept) */}
+                  {/* Package dropdown */}
                   <select
                     name="packageName"
                     value={formData.packageName}
                     onChange={handleChange}
-                    disabled={!!searchParams.get('package')}
-                    className="w-full border border-gray-300 rounded-xl px-4 py-3.5 bg-emerald-50 disabled:bg-gray-100 font-medium text-gray-900 focus:ring-2 focus:ring-emerald-500 outline-none"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-3.5 bg-emerald-50 font-medium text-gray-900 focus:ring-2 focus:ring-emerald-500 outline-none"
                     required
                   >
-                    <option value="">Select a Umrah Package*</option>
+                    <option value="">Select an Umrah Package*</option>
                     {packages.map((pkg) => (
                       <option key={pkg._id} value={pkg.title}>
                         {pkg.title}
@@ -199,11 +189,11 @@ const UmrahBookingSection = () => {
               </div>
             </div>
 
-            {/* Right: image (same as before) */}
+            {/* Right: image */}
             <div className="relative h-[400px] md:h-[500px] w-full rounded-[40px] overflow-hidden border-4 border-white shadow-xl">
               <Image
                 src="/umrah.PNG"
-                alt="Hajj"
+                alt="Umrah"
                 fill
                 className="object-cover"
               />
@@ -227,7 +217,7 @@ const UmrahBookingSection = () => {
                 duration={pkg.duration}
                 inclusions={pkg.inclusions}
                 ctaLabel="More Details"
-                onClick={() => router.push(`/Umrah/${pkg._id}`)}
+                onClick={() => scrollToForm(pkg.title)}
               />
             ))}
           </div>
