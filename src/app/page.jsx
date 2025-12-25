@@ -14,7 +14,7 @@ export default function Home() {
 <OffersSection></OffersSection>
 <EventSection></EventSection>
 <ReviewSection></ReviewSection>
-<Footer></Footer>
+
     </div>
   );
 }

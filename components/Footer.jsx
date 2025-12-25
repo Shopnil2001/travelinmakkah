@@ -9,7 +9,7 @@ const Footer = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="px-6 py-12 md:px-12 lg:px-24">
+    <footer className="px-6 py-12 md:px-12 lg:px-24 bg-white">
       <div 
         className="relative overflow-hidden rounded-[50px] bg-[#d1e9df]/40 px-10 py-16 md:px-20"
         style={{
