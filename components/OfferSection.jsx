@@ -74,6 +74,7 @@ const OffersSection = () => {
             <Image
               src="/offer.PNG" // Replace with your image path
               alt="Pilgrim at Kaaba"
+              sizes="(max-width: 1024px) 100vw, 33vw"
               fill
               className="object-cover"
             />
