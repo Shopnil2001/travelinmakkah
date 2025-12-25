@@ -64,7 +64,7 @@ const EventSection = () => {
                     {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
                   </h3>
                   <button 
-                    onClick={() => router.push(`/events/${event._id}`)}
+                    onClick={() => router.push(`/Events/${event._id}`)}
                     className="bg-[#00a651] hover:bg-[#008f45] text-white px-10 py-3 rounded-xl font-bold transition-all"
                   >
                     Book Now

@@ -69,7 +69,7 @@ const EventBookingPage = () => {
   if (!event) return <div className="p-20 text-center font-serif text-emerald-700">Loading Sacred Journey...</div>;
 
   return (
-    <div className="max-w-7xl mx-auto py-16 px-6 lg:px-24 bg-white">
+    <div className="max-w-full mx-auto py-16 px-6 lg:px-24 bg-white">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         
         {/* Left Side: Event Information */}
@@ -97,9 +97,7 @@ const EventBookingPage = () => {
             <p className="text-gray-600 leading-relaxed whitespace-pre-line">{event.description}</p>
           </div>
 
-          <div className="relative h-[350px] rounded-[40px] overflow-hidden shadow-2xl border-4 border-white">
-             <Image src="/event-bg.jpg" alt={event.title} fill className="object-cover" />
-          </div>
+          
         </div>
 
         {/* Right Side: Booking Form */}
@@ -116,19 +114,19 @@ const EventBookingPage = () => {
             </div>
 
             <input type="text" name="fullName" placeholder="Full Name*" value={formData.fullName} onChange={handleChange} required 
-              className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
             
             <input type="text" name="mobile" placeholder="Mobile Number*" value={formData.mobile} onChange={handleChange} required 
-              className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+              className="w-full p-4 text-gray-950 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
             
             <input type="email" name="email" placeholder="Email Address*" value={formData.email} onChange={handleChange} required 
-              className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
             
             <input type="text" name="passportNo" placeholder="Passport Number" value={formData.passportNo} onChange={handleChange}
-              className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
 
             <textarea name="message" placeholder="Any special requests or questions?" rows="3" value={formData.message} onChange={handleChange}
-              className="w-full p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
 
             <button type="submit" disabled={isSending}
               className="w-full bg-[#00a651] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg">
