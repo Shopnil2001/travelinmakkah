@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import api from '@/lib/api';
-import LoadingSpinner from '../../../components/Loading';
+import LoadingSpinner from '../../../../components/Loading';
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState([]);
@@ -30,7 +30,7 @@ const BlogPage = () => {
     <div className="bg-white min-h-screen pb-20">
       <div className="text-center py-16 px-6">
         <h1 className="text-4xl font-serif text-[#2d4f43]">
-          Latest <span className="bg-[#00a651] text-white px-3 py-1 rounded-lg">Blogs</span>
+          Latest <span className="bg-[#64B5F6] text-white px-3 py-1 rounded-lg">Blogs</span>
         </h1>
       </div>
 
@@ -42,7 +42,7 @@ const BlogPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {blogs.map((blog) => (
-              <Link href={`/Blog/${blog._id}`} key={blog._id} className="group">
+              <Link href={`/site/Blog/${blog._id}`} key={blog._id} className="group">
                 <article className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300">
                   <div className="relative h-52 w-full">
                     <Image 
@@ -53,7 +53,7 @@ const BlogPage = () => {
                     />
                   </div>
                   <div className="p-6">
-                    <h2 className="text-lg font-bold text-[#2d4f43] group-hover:text-[#00a651] transition-colors line-clamp-2">
+                    <h2 className="text-lg font-bold text-[#2d4f43] group-hover:text-[#64B5F6] transition-colors line-clamp-2">
                       {blog.title}
                     </h2>
                     <p className="text-xs text-gray-400 mt-4">By {blog.author} • {new Date(blog.date).toLocaleDateString()}</p>

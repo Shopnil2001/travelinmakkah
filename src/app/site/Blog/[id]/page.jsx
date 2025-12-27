@@ -4,7 +4,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import api from '@/lib/api';
 import { ArrowLeft, Calendar, User, Tag } from 'lucide-react';
-import LoadingSpinner from '../../../../components/Loading';
+import LoadingSpinner from '../../../../../components/Loading';
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -35,7 +35,7 @@ const BlogDetails = () => {
       <div className="max-w-4xl mx-auto px-6 pt-10">
         <button 
           onClick={() => router.back()}
-          className="flex items-center gap-2 text-[#00a651] hover:underline mb-8 font-medium"
+          className="flex items-center gap-2 text-[#64B5F6] hover:underline mb-8 font-medium"
         >
           <ArrowLeft size={18} /> Back to Blogs
         </button>
@@ -77,9 +77,9 @@ const BlogDetails = () => {
         {/* Tags */}
         {blog.tags && blog.tags.length > 0 && (
           <div className="mt-16 pt-8 border-t border-gray-100 flex flex-wrap gap-2">
-            <Tag size={18} className="text-[#00a651]" />
+            <Tag size={18} className="text-[#64B5F6]" />
             {blog.tags.map((tag, i) => (
-              <span key={i} className="bg-emerald-50 text-[#00a651] px-4 py-1 rounded-full text-sm font-medium">
+              <span key={i} className="bg-emerald-50 text-[#64B5F6] px-4 py-1 rounded-full text-sm font-medium">
                 #{tag}
               </span>
             ))}

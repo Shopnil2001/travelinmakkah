@@ -66,7 +66,7 @@ const EventBookingPage = () => {
     }
   };
 
-  if (!event) return <div className="p-20 text-center font-serif text-emerald-700">Loading Sacred Journey...</div>;
+  if (!event) return <div className="p-20 text-center font-serif text-[#64B5F6]">Loading Sacred Journey...</div>;
 
   return (
     <div className="max-w-full mx-auto py-16 px-6 lg:px-24 bg-white">
@@ -75,7 +75,7 @@ const EventBookingPage = () => {
         {/* Left Side: Event Information */}
         <div className="space-y-8">
           <div>
-            <span className="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">
+            <span className="bg-white text-[#64B5F6] px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">
               {event.status} Event
             </span>
             <h1 className="text-5xl font-serif text-[#2d4f43] mt-4 leading-tight">{event.title}</h1>
@@ -108,7 +108,7 @@ const EventBookingPage = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="p-4 bg-white border-l-4 border-[#00a651] rounded-xl shadow-sm mb-6">
+            <div className="p-4 bg-white border-l-4 border-[#64B5F6] rounded-xl shadow-sm mb-6">
                <p className="text-xs text-gray-400 font-bold">EVENT SELECTED</p>
                <p className="text-lg font-bold text-[#2d4f43]">{event.title}</p>
             </div>
@@ -129,7 +129,7 @@ const EventBookingPage = () => {
               className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
 
             <button type="submit" disabled={isSending}
-              className="w-full bg-[#00a651] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg">
+              className="w-full bg-[#64B5F6] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg">
               {isSending ? 'Sending Request...' : 'Register Now'}
             </button>
           </form>

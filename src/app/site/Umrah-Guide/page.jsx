@@ -43,7 +43,7 @@ const UmrahGuide = () => {
       {/* Header Section */}
       <section className="pt-16 pb-12 text-center">
         <h1 className="text-4xl md:text-5xl font-serif text-[#2d4f43]">
-          Complete Umrah <span className="bg-[#00a651] text-white px-3 py-1 rounded-lg">Guide</span>
+          Complete Umrah <span className="bg-[#64B5F6] text-white px-3 py-1 rounded-lg">Guide</span>
         </h1>
       </section>
 
@@ -51,7 +51,7 @@ const UmrahGuide = () => {
       <section className="max-w-7xl mx-auto px-6 lg:px-24 mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
-            <h2 className="text-4xl font-serif text-[#00a651] leading-tight">
+            <h2 className="text-4xl font-serif text-[#64B5F6] leading-tight">
               How to Perform Umrah: <br /> Detailed Guide
             </h2>
             <p className="text-gray-600 leading-relaxed text-lg">
@@ -78,7 +78,7 @@ const UmrahGuide = () => {
         <div className="space-y-16">
           {sections.map((section) => (
             <div key={section.id} className="space-y-6">
-              <h3 className="text-2xl font-bold text-[#00a651] border-b border-gray-100 pb-2">
+              <h3 className="text-2xl font-bold text-[#64B5F6] border-b border-gray-100 pb-2">
                 {section.title}
               </h3>
               <p className="text-[#5a6360] leading-relaxed">
@@ -100,7 +100,7 @@ const UmrahGuide = () => {
               )}
 
               {section.prayers && (
-                <div className="bg-[#f6fbf9] p-8 rounded-2xl border-l-4 border-[#00a651] space-y-4">
+                <div className="bg-[#f6fbf9] p-8 rounded-2xl border-l-4 border-[#64B5F6] space-y-4">
                   {section.prayers.map((prayer, i) => (
                     <div key={i}>
                       <p className="font-bold text-[#2d4f43]">{prayer.label}</p>

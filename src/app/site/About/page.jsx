@@ -10,7 +10,7 @@ const AboutPage = () => {
       {/* Page Title */}
       <section className="pt-16 pb-12 text-center">
         <h1 className="text-4xl md:text-5xl font-serif text-[#2d4f43]">
-          About <span className="bg-[#00a651] text-white px-3 py-1 rounded-lg">Us</span>
+          About <span className="bg-[#64B5F6] text-white px-3 py-1 rounded-lg">Us</span>
         </h1>
       </section>
 
@@ -32,7 +32,7 @@ const AboutPage = () => {
           <div className="space-y-6">
             <h2 className="text-4xl font-serif text-[#2d4f43] leading-tight">
               Discover the Story Behind <br />
-              <span className="text-[#00a651]">Travel In Makkah</span> and Our <br />
+              <span className="text-[#64B5F6]">Travel In Makkah</span> and Our <br />
               Commitment to Pilgrims
             </h2>
             
@@ -57,7 +57,7 @@ const AboutPage = () => {
           
           {/* Our Mission */}
           <div className="p-10 rounded-[30px] border border-emerald-100 bg-white hover:shadow-lg transition-shadow text-center space-y-4">
-            <div className="inline-flex p-4 bg-white shadow-sm border border-gray-50 rounded-2xl text-[#00a651] mb-2">
+            <div className="inline-flex p-4 bg-white shadow-sm border border-gray-50 rounded-2xl text-[#64B5F6] mb-2">
               <Rocket size={40} strokeWidth={1.5} />
             </div>
             <h3 className="text-3xl font-serif text-[#2d4f43]">Our Mission</h3>
@@ -68,7 +68,7 @@ const AboutPage = () => {
 
           {/* Our Vision */}
           <div className="p-10 rounded-[30px] border border-emerald-100 bg-white hover:shadow-lg transition-shadow text-center space-y-4">
-            <div className="inline-flex p-4 bg-white shadow-sm border border-gray-50 rounded-2xl text-[#00a651] mb-2">
+            <div className="inline-flex p-4 bg-white shadow-sm border border-gray-50 rounded-2xl text-[#64B5F6] mb-2">
               <Lightbulb size={40} strokeWidth={1.5} />
             </div>
             <h3 className="text-3xl font-serif text-[#2d4f43]">Our Vision</h3>

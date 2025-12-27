@@ -91,7 +91,7 @@ const PackageDetailsPage = () => {
           <h1 className="text-5xl font-serif text-[#2d4f43]">
             {pkg.title}
           </h1>
-          <p className="text-2xl text-[#00a651] font-bold">
+          <p className="text-2xl text-[#64B5F6] font-bold">
             Price: BDT {pkg.price.toLocaleString()}
           </p>
 
@@ -164,7 +164,7 @@ const PackageDetailsPage = () => {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-4 w-full bg-[#00a651] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-colors hover:bg-[#008f45] shadow-md shadow-emerald-100 disabled:opacity-60"
+              className="mt-4 w-full bg-[#64B5F6] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-colors hover:bg-[#008f45] shadow-md shadow-emerald-100 disabled:opacity-60"
             >
               {isSending ? 'Processing...' : 'Confirm Booking Request'}
             </button>

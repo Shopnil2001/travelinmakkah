@@ -1,33 +1,39 @@
 'use client'
-import { useState } from 'react'
-import AdminSidebar from '../../../components/AdminSidebar'
-import AdminHeader from '../../../components/AdminHeader'
-import PrivateRoute from '../../../components/PrivateRoutes'
-import AdminRoute from '../../../components/AdminRoute'
 
-export default function AdminLayout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+import Providers from "../../components/Provider";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import { usePathname } from "next/navigation";
 
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const isAdminRoute = pathname.startsWith('/admin');
 
   return (
-    <AdminRoute>
-      <PrivateRoute>
-        <div className="flex h-screen">
-          {/* Sidebar */}
-          {sidebarOpen && <AdminSidebar />}
-
-          {/* Main content */}
-          <div
-            className={`flex-1 flex flex-col transition-all duration-300 ${
-              sidebarOpen ? 'ml-24' : 'ml-0' // <-- add left margin equal to sidebar width
-            }`}
-          >
-            <AdminHeader toggleSidebar={toggleSidebar} />
-            <main className="flex-1 p-6 overflow-y-auto">{children}</main>
+    <html lang="en">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-amber-50`}>
+        <Providers>
+          {!isAdminRoute && <Navbar />}
+          
+          <div className={!isAdminRoute ? "mt-20" : ""}>
+            {children}
           </div>
-        </div>
-      </PrivateRoute>
-    </AdminRoute>
-  )
+
+          {!isAdminRoute && <Footer />}
+        </Providers>
+      </body>
+    </html>
+  );
 }

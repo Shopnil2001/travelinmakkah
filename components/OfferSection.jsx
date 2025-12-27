@@ -62,7 +62,7 @@ const OffersSection = () => {
       {/* Section Header */}
       <div className="flex items-center justify-center gap-2 mb-12">
         <h2 className="text-3xl font-medium text-[#2d4f43]">What We Do</h2>
-        <span className="bg-[#00a651] text-white px-4 py-1 rounded-md text-2xl font-semibold">
+        <span className="bg-[#64B5F6] text-white px-4 py-1 rounded-md text-2xl font-semibold">
           Offters
         </span>
       </div>
@@ -85,7 +85,7 @@ const OffersSection = () => {
         <div className="lg:col-span-8">
           <h3 className="text-4xl md:text-5xl font-serif text-[#2d4f43] leading-tight mb-4">
             Inspired Services to Complete Your <br />
-            <span className="text-[#00a651]">Dream Journey</span>
+            <span className="text-[#64B5F6]">Dream Journey</span>
           </h3>
           <p className="text-[#5a6360] text-lg mb-12 max-w-2xl">
             We provides complete services to make the pilgrimage smooth, safe, and comfortable for every pilgrim.

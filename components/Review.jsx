@@ -52,7 +52,7 @@ const ReviewSection = () => {
         {/* Header Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-serif text-[#2d4f43] mb-4">
-            Why People <span className="bg-[#00a651] text-white px-3 py-1 rounded-md">choose us</span>
+            Why People <span className="bg-[#64B5F6] text-white px-3 py-1 rounded-md">choose us</span>
           </h2>
           <p className="text-[#5a6360] max-w-2xl mx-auto leading-relaxed">
             Trusted by thousands—read reviews from pilgrims who journeyed with us.
@@ -117,7 +117,7 @@ const ReviewSection = () => {
               key={index}
               onClick={() => emblaApi?.scrollTo(index)}
               className={`transition-all duration-300 h-2.5 rounded-full ${
-                selectedIndex === index ? 'w-8 bg-[#00a651]' : 'w-2.5 bg-gray-200'
+                selectedIndex === index ? 'w-8 bg-[#64B5F6]' : 'w-2.5 bg-gray-200'
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

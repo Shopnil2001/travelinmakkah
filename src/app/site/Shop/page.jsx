@@ -65,7 +65,7 @@ const ProductPage = () => {
               onClick={() => handleCategoryChange(cat)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all border ${
                 activeCategory === cat 
-                ? 'bg-[#00a651] text-white border-[#00a651]' 
+                ? 'bg-[#64B5F6] text-white border-[#64B5F6]' 
                 : 'bg-zinc-50 text-gray-600 border-gray-100 hover:bg-gray-100'
               }`}
             >
@@ -82,7 +82,7 @@ const ProductPage = () => {
             <div key={product._id} className="group relative bg-white rounded-3xl p-4 border border-gray-50 shadow-sm hover:shadow-xl transition-all duration-300">
               {/* Image & Discount Badge */}
               <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-4 bg-zinc-100">
-                <div className="absolute top-3 left-3 z-10 bg-[#00a651] text-white text-[10px] font-bold px-2 py-1 rounded-full">
+                <div className="absolute top-3 left-3 z-10 bg-[#64B5F6] text-white text-[10px] font-bold px-2 py-1 rounded-full">
                   10% off
                 </div>
                 <Image 
@@ -96,7 +96,7 @@ const ProductPage = () => {
               {/* Price & Rating Row */}
               <div className="flex justify-between items-center mb-1">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-[#00a651] font-bold">৳ {product.price}</span>
+                  <span className="text-[#64B5F6] font-bold">৳ {product.price}</span>
                   <span className="text-gray-300 text-xs line-through">৳ {product.price + 100}</span>
                 </div>
                 <div className="flex items-center gap-1 text-[#f1c40f]">
@@ -114,7 +114,7 @@ const ProductPage = () => {
                   href={product.affiliateUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="p-2 bg-emerald-50 text-[#00a651] rounded-lg hover:bg-[#00a651] hover:text-white transition-colors"
+                  className="p-2 bg-emerald-50 text-[#64B5F6] rounded-lg hover:bg-[#64B5F6] hover:text-white transition-colors"
                 >
                   <ShoppingCart size={18} />
                 </a>
@@ -139,7 +139,7 @@ const ProductPage = () => {
                 onClick={() => setCurrentPage(i + 1)}
                 className={`w-10 h-10 rounded-xl font-bold transition-all ${
                   currentPage === i + 1 
-                  ? 'bg-[#00a651] text-white' 
+                  ? 'bg-[#64B5F6] text-white' 
                   : 'bg-white text-gray-400 border border-gray-100 hover:bg-gray-50'
                 }`}
               >

@@ -43,7 +43,7 @@ const HajjGuide = () => {
       {/* Header Section */}
       <section className="pt-16 pb-12 text-center">
         <div className="inline-flex items-center gap-2 text-4xl md:text-5xl font-serif text-[#2d4f43]">
-          Complete Hajj <span className="bg-[#00a651] text-white px-4 py-1 rounded-lg">Guide</span>
+          Complete Hajj <span className="bg-[#64B5F6] text-white px-4 py-1 rounded-lg">Guide</span>
         </div>
       </section>
 
@@ -51,7 +51,7 @@ const HajjGuide = () => {
       <section className="max-w-7xl mx-auto px-6 lg:px-24 mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1 space-y-6">
-            <h1 className="text-4xl md:text-5xl font-serif text-[#00a651] leading-tight">
+            <h1 className="text-4xl md:text-5xl font-serif text-[#64B5F6] leading-tight">
               How to Perform Hajj: <br /> Detailed Guide
             </h1>
             <p className="text-[#5a6360] leading-relaxed text-lg">
@@ -79,13 +79,13 @@ const HajjGuide = () => {
         <div className="space-y-12">
           {sections.map((section, idx) => (
             <div key={idx} className="space-y-4">
-              <h3 className="text-xl font-bold text-[#00a651] font-serif">
+              <h3 className="text-xl font-bold text-[#64B5F6] font-serif">
                 {section.title}
               </h3>
               <ul className="space-y-4">
                 {section.items.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-[#5a6360] leading-relaxed">
-                    <span className="text-[#00a651] mt-1.5">•</span>
+                    <span className="text-[#64B5F6] mt-1.5">•</span>
                     <span>{item}</span>
                   </li>
                 ))}

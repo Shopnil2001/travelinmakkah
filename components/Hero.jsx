@@ -57,7 +57,7 @@ const Hero = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center justify-center lg:justify-start gap-3 w-full lg:w-auto rounded-2xl bg-gradient-to-r from-[#00a651] via-[#00a651] to-[#008f45] px-8 py-5 lg:py-6 text-lg lg:text-xl xl:text-2xl font-bold text-white shadow-2xl hover:shadow-emerald-500/50 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 overflow-hidden"
+            className="group relative flex items-center justify-center lg:justify-start gap-3 w-full lg:w-auto rounded-2xl bg-gradient-to-r from-[#64B5F6] via-[#64B5F6] to-[#008f45] px-8 py-5 lg:py-6 text-lg lg:text-xl xl:text-2xl font-bold text-white shadow-2xl hover:shadow-emerald-500/50 backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300 overflow-hidden"
           >
             <span className="relative z-10 tracking-wide">Start your Journey</span>
             <ArrowRightCircle className="h-6 w-6 lg:h-7 lg:w-7 group-hover:translate-x-1 transition-transform duration-300 relative z-10 flex-shrink-0" />

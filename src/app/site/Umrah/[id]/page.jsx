@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import emailjs from '@emailjs/browser';
+import LoadingSpinner from '../../../../../components/Loading';
 
 const PackageDetailsPage = () => {
   const { id } = useParams();
@@ -77,20 +78,18 @@ const PackageDetailsPage = () => {
 
   if (!pkg)
     return (
-      <div className="p-20 text-center text-emerald-600">
-        Loading details...
-      </div>
+      <LoadingSpinner></LoadingSpinner>
     );
 
   return (
-    <div className="max-w-7xl mx-auto py-20 px-6">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div className="min-h-screen bg-white max-w-7xl mx-auto py-20 px-6  ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 ">
         {/* Left: Package Info */}
         <div className="space-y-6">
           <h1 className="text-5xl font-serif text-[#2d4f43]">
             {pkg.title}
           </h1>
-          <p className="text-2xl text-[#00a651] font-bold">
+          <p className="text-2xl text-[#64B5F6] font-bold">
             Price: BDT {pkg.price.toLocaleString()}
           </p>
 
@@ -163,7 +162,7 @@ const PackageDetailsPage = () => {
             <button
               type="submit"
               disabled={isSending}
-              className="mt-4 w-full bg-[#00a651] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-colors hover:bg-[#008f45] shadow-md shadow-emerald-100 disabled:opacity-60"
+              className="mt-4 w-full bg-[#64B5F6] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-colors hover:bg-[#008f45] shadow-md shadow-emerald-100 disabled:opacity-60"
             >
               {isSending ? 'Processing...' : 'Confirm Booking Request'}
             </button>

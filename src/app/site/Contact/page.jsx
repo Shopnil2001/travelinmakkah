@@ -60,7 +60,7 @@ const ContactUsPage = () => {
           <div>
             <h1 className="text-5xl md:text-6xl font-serif text-[#2d4f43] flex items-center gap-3">
               Contact{' '}
-              <span className="bg-[#00a651] text-white px-3 py-1 rounded-lg">
+              <span className="bg-[#64B5F6] text-white px-3 py-1 rounded-lg">
                 Us
               </span>
             </h1>
@@ -72,7 +72,7 @@ const ContactUsPage = () => {
 
           <div className="space-y-6 pt-4">
             <div className="flex items-start gap-4">
-              <div className="bg-emerald-50 p-3 rounded-full text-[#00a651]">
+              <div className="bg-emerald-50 p-3 rounded-full text-[#64B5F6]">
                 <MapPin size={24} />
               </div>
               <div>
@@ -84,7 +84,7 @@ const ContactUsPage = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-emerald-50 p-3 rounded-full text-[#00a651]">
+              <div className="bg-emerald-50 p-3 rounded-full text-[#64B5F6]">
                 <Mail size={24} />
               </div>
               <div>
@@ -95,7 +95,7 @@ const ContactUsPage = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <div className="bg-emerald-50 p-3 rounded-full text-[#00a651]">
+              <div className="bg-emerald-50 p-3 rounded-full text-[#64B5F6]">
                 <Phone size={24} />
               </div>
               <div>
@@ -160,7 +160,7 @@ const ContactUsPage = () => {
             <button
               type="submit"
               disabled={isSending}
-              className="w-full bg-[#00a651] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg active:scale-[0.98] disabled:opacity-60"
+              className="w-full bg-[#64B5F6] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg active:scale-[0.98] disabled:opacity-60"
             >
               {isSending ? 'Sending...' : 'Submit'}
             </button>

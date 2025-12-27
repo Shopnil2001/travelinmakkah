@@ -16,7 +16,7 @@ const PackageCard = ({
       whileHover={{ y: -5 }}
       className="
         relative max-w-sm flex flex-col overflow-hidden
-        rounded-[40px] border-2 border-[#a7d7c5] bg-white shadow-sm
+        rounded-[40px] border-2 border-[#a1ccd6] bg-white shadow-sm
         bg-[url('/Background.PNG')] bg-repeat
       "
     >
@@ -40,7 +40,7 @@ const PackageCard = ({
           {inclusions.map((item, idx) => (
             <li key={idx} className="flex items-start gap-3">
               <Check
-                className="mt-1 h-5 w-5 shrink-0 text-[#00a651]"
+                className="mt-1 h-5 w-5 shrink-0 text-[#64B5F6]"
                 strokeWidth={3}
               />
               <span className="text-[17px] leading-tight text-[#5a6360] font-normal">
@@ -56,7 +56,7 @@ const PackageCard = ({
         <motion.button
           whileTap={{ scale: 0.98 }}
           onClick={onClick}
-          className="w-full rounded-xl bg-[#00a651] py-4 text-xl font-semibold text-white transition-colors hover:bg-[#008f45] shadow-sm"
+          className="w-full rounded-xl bg-[#64B5F6] py-4 text-xl font-semibold text-white transition-colors hover:bg-[#004a8f] shadow-sm"
         >
           {ctaLabel}
         </motion.button>

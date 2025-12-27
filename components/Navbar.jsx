@@ -5,10 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useAuth } from '../Provider/AuthProvider';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Menu, X, LogOut, User, Phone, Mail } from 'lucide-react';
+import { ChevronDown, Menu, X, LogOut, User, Phone, Mail, LayoutDashboard } from 'lucide-react';
 
 const Navbar = () => {
-  const { user, logOut } = useAuth();
+  const { user, logOut, role } = useAuth();
+  const isAdmin = user && role === 'admin';
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -24,17 +25,17 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Hajj', href: '/Hajj' },
-    { name: 'Umrah', href: '/Umrah' },
-    { name: 'Shop', href: '/Shop' },
-    { name: 'Visa', href: '/Visa' },
+    { name: 'Hajj', href: '/site/Hajj' },
+    { name: 'Umrah', href: '/site/Umrah' },
+    { name: 'Shop', href: '/site/Shop' },
+    { name: 'Visa', href: '/site/Visa' },
   ];
 
   const moreLinks = [
-    { name: 'Hajj Guide', href: '/Hajj-Guide' },
-    { name: 'Umrah Guide', href: '/Umrah-Guide' },
-    { name: 'About Us', href: '/About' },
-    { name: 'Blog', href: '/Blog' },
+    { name: 'Hajj Guide', href: '/site/Hajj-Guide' },
+    { name: 'Umrah Guide', href: '/site/Umrah-Guide' },
+    { name: 'About Us', href: '/site/About' },
+    { name: 'Blog', href: '/site/Blog' },
   ];
 
   const handleMoreToggle = () => {
@@ -74,7 +75,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="group relative text-base lg:text-lg font-medium text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-emerald-50/50"
+                className="group relative text-base lg:text-lg font-medium text-gray-800 hover:text-[#64B5F6] px-3 py-2 rounded-lg transition-all duration-300 hover:bg-emerald-50/50"
               >
                 {link.name}
                 <span className="absolute inset-0 bg-emerald-100/50 rounded-lg -z-10 scale-0 group-hover:scale-100 transition-transform origin-center duration-300" />
@@ -83,7 +84,7 @@ const Navbar = () => {
 
             {/* More Dropdown */}
             <div className="relative" onMouseEnter={() => setIsMoreOpen(true)} onMouseLeave={() => setIsMoreOpen(false)}>
-              <button className="group flex items-center gap-2 text-base lg:text-lg font-medium text-gray-800 hover:text-emerald-600 px-3 py-2 rounded-lg hover:bg-emerald-50/50 transition-all duration-300">
+              <button className="group flex items-center gap-2 text-base lg:text-lg font-medium text-gray-800 hover:text-[#64B5F6] px-3 py-2 rounded-lg hover:bg-emerald-50/50 transition-all duration-300">
                 More 
                 <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${isMoreOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -102,10 +103,10 @@ const Navbar = () => {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="flex items-center gap-3 px-6 py-4 text-sm font-medium text-gray-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 hover:text-emerald-700 transition-all duration-200 border-b border-gray-50/50 last:border-b-0 hover:shadow-sm"
+                          className="flex items-center gap-3 px-6 py-4 text-sm font-medium text-gray-700 hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 hover:text-[#64B5F6] transition-all duration-200 border-b border-gray-50/50 last:border-b-0 hover:shadow-sm"
                           onClick={() => setIsMoreOpen(false)}
                         >
-                          <div className="w-2 h-8 bg-gradient-to-b from-emerald-400 to-green-400 rounded-full" />
+                          <div className="w-2 h-8 bg-gradient-to-b from-blue-600 to-blue-400 rounded-full" />
                           <span>{item.name}</span>
                         </Link>
                       ))}
@@ -118,8 +119,18 @@ const Navbar = () => {
 
           {/* Desktop Right Actions */}
           <div className="hidden lg:flex xl:gap-6 lg:gap-4 items-center">
+            
             {user ? (
               <div className="flex items-center gap-3">
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="flex items-center gap-2 text-sm font-bold text-white bg-[#64B5F6] px-4 py-2 rounded-xl shadow-md hover:shadow-emerald-200 hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span>Dashboard</span>
+                  </Link>
+                )}
                 <div className="flex items-center gap-2 text-sm font-medium text-gray-700 bg-gray-100/50 px-4 py-2 rounded-xl backdrop-blur-sm hover:bg-gray-200 transition-all">
                   <User className="h-4 w-4" />
                   <span>{user.email?.split('@')[0] || 'User'}</span>
@@ -134,15 +145,15 @@ const Navbar = () => {
               </div>
             ) : (
               <Link 
-                href="/login" 
-                className="text-sm font-semibold text-gray-700 hover:text-emerald-600 px-4 py-2 rounded-xl hover:bg-emerald-50/50 transition-all duration-200"
+                href="/site/login" 
+                className="text-sm font-semibold text-gray-700 hover:text-[#64B5F6] px-4 py-2 rounded-xl hover:bg-emerald-50/50 transition-all duration-200"
               >
                 Sign in
               </Link>
             )}
 
             <Link
-              href="/Contact"
+              href="/site/Contact"
               className="group relative rounded-2xl border-2 border-black px-8 py-3 lg:py-3.5 text-base lg:text-lg font-bold text-black overflow-hidden hover:bg-black hover:text-white transition-all duration-300 shadow-lg hover:shadow-black/20 hover:-translate-y-0.5"
             >
               <span className="relative z-10">Contact us</span>
@@ -213,7 +224,7 @@ const Navbar = () => {
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-4 px-4 text-xl font-semibold text-gray-800 hover:bg-emerald-50 hover:text-emerald-600 rounded-2xl transition-all duration-200"
+                    className="block py-4 px-4 text-xl font-semibold text-gray-800 hover:bg-emerald-50 hover:text-[#64B5F6] rounded-2xl transition-all duration-200"
                   >
                     {link.name}
                   </Link>
@@ -226,9 +237,19 @@ const Navbar = () => {
               <div className="space-y-6">
                 {user ? (
                   <div className="flex flex-col gap-4">
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-center gap-3 p-4 bg-[#64B5F6] text-white font-bold rounded-2xl shadow-lg shadow-emerald-100"
+                      >
+                        <LayoutDashboard className="h-5 w-5" />
+                        Admin Dashboard
+                      </Link>
+                    )}
                     <div className="flex items-center gap-3 p-4 bg-gray-50 rounded-2xl">
                       <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
-                        <User className="h-5 w-5 text-emerald-600" />
+                        <User className="h-5 w-5 text-[#64B5F6]" />
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">{user.email?.split('@')[0] || 'User'}</p>
@@ -245,15 +266,15 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <Link 
-                    href="/login"
+                    href="/site/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full text-center py-4 px-6 bg-emerald-600 text-white font-semibold rounded-2xl hover:bg-emerald-700 transition-all duration-200 text-lg"
+                    className="block w-full text-center py-4 px-6 bg-[#64B5F6] text-white font-semibold rounded-2xl hover:bg-[#64B5F6] transition-all duration-200 text-lg"
                   >
                     Sign In
                   </Link>
                 )}
                 <Link
-                  href="/Contact"
+                  href="/site/Contact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full py-5 px-6 bg-gradient-to-r from-black to-gray-900 text-white font-bold text-lg rounded-2xl text-center shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
                 >
