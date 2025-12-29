@@ -43,8 +43,8 @@ const PackageDetailsPage = () => {
     setIsSending(true);
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLET_ID1,
         {
           subject_title: `Umrah Booking: ${pkg.title}`,
           name: formData.fullName,
@@ -54,7 +54,7 @@ const PackageDetailsPage = () => {
           message: 'No specific message provided.',
           time: new Date().toLocaleString(),
         },
-        'YOUR_PUBLIC_KEY'
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
       );
       alert(`Booking request for ${pkg.title} sent!`);
       setFormData({

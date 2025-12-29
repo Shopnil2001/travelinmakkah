@@ -52,10 +52,10 @@ const EventBookingPage = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLET_ID2,
         templateParams,
-        'YOUR_PUBLIC_KEY'
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
       );
       alert(`Request for ${event.title} sent successfully!`);
       setFormData({ fullName: '', mobile: '', email: '', passportNo: '', message: '' });

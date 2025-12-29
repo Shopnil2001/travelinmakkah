@@ -22,10 +22,11 @@ const UmrahBookingSection = () => {
     packageName: '',
   });
   const router = useRouter();
-const handlePackageClick = (id) => {
-    router.push(`/site/Umrah/${id}`); // Assuming your details page is at /hajj/[id]
+
+  const handlePackageClick = (id) => {
+    router.push(`/site/Umrah/${id}`);
   };
-  // Fetch Umrah packages
+
   useEffect(() => {
     const fetchAndSync = async () => {
       try {
@@ -44,19 +45,14 @@ const handlePackageClick = (id) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const scrollToForm = (title) => {
-    setFormData((prev) => ({ ...prev, packageName: title }));
-    formRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLET_ID1,
         {
           subject_title: `Umrah Booking: ${formData.packageName}`,
           name: formData.fullName,
@@ -66,7 +62,7 @@ const handlePackageClick = (id) => {
           message: 'No specific message provided.',
           time: new Date().toLocaleString(),
         },
-        'YOUR_PUBLIC_KEY'
+          process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
       );
       alert('Application Received! We will contact you soon.');
       setFormData({
@@ -84,7 +80,7 @@ const handlePackageClick = (id) => {
   };
 
   const inputClass =
-    'w-full border border-gray-300 rounded-xl px-4 py-3.5 text-sm font-medium ' +
+    'w-full border border-gray-300 rounded-xl px-4 py-3 text-sm md:text-base font-medium ' +
     'text-gray-900 placeholder-gray-500 ' +
     'focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 ' +
     'transition-all bg-white';
@@ -92,47 +88,45 @@ const handlePackageClick = (id) => {
   return (
     <div className="bg-white">
       {/* FORM SECTION */}
-      <section ref={formRef} className="py-16 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto border border-[#64B5F6] rounded-3xl overflow-hidden relative shadow-sm bg-white">
-          {/* Floating Top Badge */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center bg-white px-5 py-2 border-x border-b border-[#64B5F6] rounded-b-2xl z-10 shadow-sm">
-            <span className="bg-[#64B5F6] text-white px-2 py-0.5 rounded text-lg font-bold mr-2">
-  0            Umrah
+      <section ref={formRef} className="py-10 md:py-16 px-4 sm:px-8 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto border border-[#64B5F6] rounded-[2.5rem] overflow-hidden relative shadow-sm bg-white mt-8 md:mt-0">
+          
+          {/* Responsive Floating Top Badge */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 flex items-center justify-center bg-white px-4 md:px-6 py-2 border-x border-b border-[#64B5F6] rounded-b-2xl z-20 shadow-sm w-[90%] sm:w-auto whitespace-nowrap">
+            <span className="bg-[#64B5F6] text-white px-2 py-0.5 rounded text-sm md:text-lg font-bold mr-2">
+              Umrah
             </span>
-            <span className="text-xl font-medium text-gray-800">
+            <span className="text-sm md:text-xl font-medium text-gray-800">
               Pilgrimage {currentYear}
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-8 md:p-14 items-center">
-            {/* Left: text + form */}
-            <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-serif text-[#2d4f43] leading-tight">
-                Where Your Dreams Find The <br />
-                with our{' '}
-                <span className="text-[#64B5F6]">Perfect Guidance</span>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 p-6 pt-16 md:p-12 lg:p-16 items-center">
+            
+            {/* Left Column: Text + Form */}
+            <div className="space-y-6 order-2 lg:order-1">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif text-[#2d4f43] leading-tight">
+                Where Your Dreams Find <br className="hidden md:block" />
+                the <span className="text-[#64B5F6]">Perfect Guidance</span>
               </h2>
 
-              <p className="text-[#5a6360] text-base leading-relaxed max-w-lg">
-                Plan your Umrah with ease. Reserve your package today for a
-                smooth and fulfilling pilgrimage. Travel In Makkah, Bangladesh’s
-                trusted Hajj &amp; Umrah agency, offers multiple package options
-                designed for your comfort and spiritual growth. Limited
-                slots—act fast.
+              <p className="text-[#5a6360] text-sm md:text-base leading-relaxed max-w-lg">
+                Plan your Umrah with ease. Travel In Makkah, Bangladesh’s trusted agency, 
+                offers packages designed for your comfort and spiritual growth. 
+                Limited slots—act fast.
               </p>
 
-              <div className="pt-6">
-                <h4 className="text-lg font-bold text-gray-900 mb-5">
+              <div className="pt-4">
+                <h4 className="text-lg font-bold text-gray-900 mb-4">
                   Input your information
                 </h4>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Package dropdown */}
                   <select
                     name="packageName"
                     value={formData.packageName}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-xl px-4 py-3.5 bg-emerald-50 font-medium text-gray-900 focus:ring-2 focus:ring-blue-400 outline-none"
+                    className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-blue-50/50 font-medium text-gray-900 focus:ring-2 focus:ring-blue-400 outline-none transition-all"
                     required
                   >
                     <option value="">Select an Umrah Package*</option>
@@ -185,7 +179,7 @@ const handlePackageClick = (id) => {
                   <motion.button
                     whileTap={{ scale: 0.98 }}
                     disabled={isSending}
-                    className="mt-4 bg-[#64B5F6] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-colors hover:bg-[#008f45] shadow-md shadow-[#64B5F6] disabled:opacity-60"
+                    className="w-full md:w-auto mt-4 bg-[#64B5F6] text-white px-10 py-3.5 rounded-xl font-semibold text-lg transition-all hover:bg-blue-500 shadow-lg shadow-blue-100 disabled:opacity-60"
                   >
                     {isSending ? 'Processing...' : 'Book Now'}
                   </motion.button>
@@ -193,12 +187,13 @@ const handlePackageClick = (id) => {
               </div>
             </div>
 
-            {/* Right: image */}
-            <div className="relative h-[400px] md:h-[500px] w-full rounded-[40px] overflow-hidden border-4 border-white shadow-xl">
+            {/* Right Column: Image */}
+            <div className="relative h-[250px] sm:h-[350px] md:h-[450px] lg:h-[550px] w-full rounded-[2.5rem] overflow-hidden border-4 border-white shadow-xl order-1 lg:order-2">
               <Image
                 src="/umrah.PNG"
-                alt="Umrah"
+                alt="Umrah Pilgrimage"
                 fill
+                priority
                 className="object-cover"
               />
             </div>
@@ -207,12 +202,16 @@ const handlePackageClick = (id) => {
       </section>
 
       {/* PACKAGES SECTION */}
-      <section className="py-16 px-6 bg-[#fcfdfd]">
+      <section className="py-12 md:py-20 px-4 sm:px-6 bg-[#fcfdfd]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-serif text-center mb-12">
-            Our Umrah <span className="text-[#64B5F6]">Packages</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="text-center mb-10 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-serif">
+              Our Umrah <span className="text-[#64B5F6]">Packages</span>
+            </h2>
+            <div className="h-1 w-20 bg-[#64B5F6] mx-auto mt-4 rounded-full" />
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {packages.map((pkg) => (
               <PackageCard
                 key={pkg._id}
@@ -225,6 +224,10 @@ const handlePackageClick = (id) => {
               />
             ))}
           </div>
+
+          {packages.length === 0 && !isSending && (
+            <p className="text-center text-gray-500 py-10">No packages available at the moment.</p>
+          )}
         </div>
       </section>
     </div>

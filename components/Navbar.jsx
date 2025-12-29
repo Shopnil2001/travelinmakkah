@@ -9,7 +9,7 @@ import { ChevronDown, Menu, X, LogOut, User, Phone, Mail, LayoutDashboard } from
 
 const Navbar = () => {
   const { user, logOut, role } = useAuth();
-  const isAdmin = user && role === 'admin';
+  const isAdmin = user && role === 'admin'||'superadmin';
   const [isMoreOpen, setIsMoreOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);

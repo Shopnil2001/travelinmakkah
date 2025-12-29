@@ -33,10 +33,10 @@ const ContactUsPage = () => {
 
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLET_ID1,
         templateParams,
-        'YOUR_PUBLIC_KEY'
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
       );
       alert('Thank you! Your message has been sent successfully.');
       setFormData({ name: '', mobile: '', email: '', message: '' });
