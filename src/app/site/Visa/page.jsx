@@ -50,7 +50,7 @@ const VisaPage = () => {
             <motion.div
               key={visa._id}
               whileHover={{ y: -10 }}
-              onClick={() => router.push(`/site/visa/${visa._id}`)}
+              onClick={() => router.push(`/site/Visa/${visa._id}`)}
               className="bg-white rounded-[2rem] overflow-hidden shadow-xl shadow-blue-100/50 border border-gray-100 cursor-pointer group"
             >
               <div className="relative h-64 overflow-hidden">
