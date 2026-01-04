@@ -1,22 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Trash2, Edit3, Plus, Loader2 } from 'lucide-react';
-
+import { Trash2, Edit3, Plus, Loader2, X, Star } from 'lucide-react';
 import api from '@/lib/api';
 import { useAuth } from '../../../../Provider/AuthProvider';
 import LoadingSpinner from '../../../../components/Loading';
 import PrivateRoute from '../../../../components/PrivateRoute';
 import AdminSidebar from '../../../../components/AdminSidebar';
-import ImageUploader from '../../../../components/ImageUploader'; // ← Your beautiful uploader
-
-const inputClass =
-  'w-full px-5 py-4 rounded-2xl border border-gray-300 bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-emerald-400/30 focus:border-emerald-500 shadow-sm transition';
+import ImageUploader from '../../../../components/ImageUploader';
+import '../admin.css';
 
 const AdminReviewPage = () => {
   const { user } = useAuth();
-
   const [reviews, setReviews] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -104,216 +99,191 @@ const AdminReviewPage = () => {
 
   return (
     <PrivateRoute adminOnly>
-      <div className="min-h-screen flex bg-gray-50 text-gray-900">
+      <div className="admin-layout">
         <AdminSidebar />
 
-        <div className="flex-1 ml-0 lg:ml-64 mt-16 lg:mt-0 px-4 sm:px-6 lg:px-8 py-8">
-          <div className="max-w-7xl mx-auto space-y-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center"
-            >
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-3">
-                Manage Reviews
-              </h1>
-              <p className="text-gray-800 text-base sm:text-lg max-w-2xl mx-auto">
+        <main className="admin-content">
+          <div className="admin-content-wrapper">
+            {/* Header */}
+            <header className="admin-page-header admin-animate-in">
+              <h1 className="admin-page-title">Manage Reviews</h1>
+              <p className="admin-page-subtitle">
                 Add and manage authentic customer testimonials
               </p>
-            </motion.div>
+            </header>
 
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-red-50 border border-red-200 text-red-800 px-6 py-4 rounded-2xl shadow max-w-2xl mx-auto"
-                >
-                  <div className="flex justify-between items-center">
-                    <span>{error}</span>
-                    <button
-                      onClick={() => setError('')}
-                      className="font-bold text-xl"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Error Alert */}
+            {error && (
+              <div className="admin-alert admin-alert-error admin-animate-in">
+                <span>{error}</span>
+                <button className="admin-alert-close" onClick={() => setError('')}>
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
 
-            {/* FORM */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-3xl shadow-xl border border-gray-200 p-8 sm:p-10"
-            >
-              <h2 className="text-2xl sm:text-3xl font-bold text-black mb-8">
-                {editingId ? 'Edit Review' : 'Create Review'}
-              </h2>
-
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Image Uploader */}
-                <div>
+            {/* Form Card */}
+            <div className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
+              <div className="admin-card-header">
+                <h2 className="admin-card-title">
+                  {editingId ? 'Edit Review' : 'Create Review'}
+                </h2>
+              </div>
+              <div className="admin-card-body">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Image Uploader */}
                   <ImageUploader
                     label="Customer Photo"
                     currentUrl={formData.photoUrl}
                     onUpload={(url) => setFormData({ ...formData, photoUrl: url })}
                     maxSizeMB={8}
                   />
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block font-semibold text-black mb-2">
-                      Customer Name *
-                    </label>
-                    <input
-                      className={inputClass}
-                      placeholder="John Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                    />
+                  <div className="admin-form-grid">
+                    <div>
+                      <label className="admin-label">Customer Name</label>
+                      <input
+                        className="admin-input"
+                        placeholder="John Doe"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="admin-label">Rating</label>
+                      <select
+                        className="admin-input admin-select"
+                        value={formData.rating}
+                        onChange={(e) => setFormData({ ...formData, rating: Number(e.target.value) })}
+                      >
+                        {[5, 4, 3, 2, 1].map((r) => (
+                          <option key={r} value={r}>{r} Stars</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="admin-form-full">
+                      <label className="admin-label">Review Text</label>
+                      <textarea
+                        className="admin-input admin-textarea"
+                        rows={5}
+                        placeholder="Write the customer's testimonial..."
+                        value={formData.reviewText}
+                        onChange={(e) => setFormData({ ...formData, reviewText: e.target.value })}
+                        required
+                      />
+                    </div>
+
+                    <div className="admin-form-full admin-form-actions">
+                      <button
+                        type="submit"
+                        disabled={formLoading}
+                        className="admin-btn admin-btn-primary flex-1 sm:flex-none"
+                      >
+                        {formLoading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            {editingId ? <Edit3 className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                            {editingId ? 'Update Review' : 'Create Review'}
+                          </>
+                        )}
+                      </button>
+
+                      {editingId && (
+                        <button
+                          type="button"
+                          onClick={resetForm}
+                          className="admin-btn admin-btn-secondary"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
                   </div>
+                </form>
+              </div>
+            </div>
 
-                  <div>
-                    <label className="block font-semibold text-black mb-2">
-                      Rating *
-                    </label>
-                    <select
-                      className={inputClass}
-                      value={formData.rating}
-                      onChange={(e) => setFormData({ ...formData, rating: Number(e.target.value) })}
-                    >
-                      {[5, 4, 3, 2, 1].map((r) => (
-                        <option key={r} value={r}>{r} Stars</option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-semibold text-black mb-2">
-                    Review Text *
-                  </label>
-                  <textarea
-                    rows={6}
-                    className={`${inputClass} resize-vertical`}
-                    placeholder="Write the customer's heartfelt review..."
-                    value={formData.reviewText}
-                    onChange={(e) => setFormData({ ...formData, reviewText: e.target.value })}
-                    required
-                  />
-                </div>
-
-                <div className="flex gap-4">
-                  <button
-                    type="submit"
-                    disabled={formLoading}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-bold flex justify-center items-center gap-2 disabled:opacity-50"
-                  >
-                    {formLoading ? (
-                      <>
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                        Saving...
-                      </>
-                    ) : (
-                      <>
-                        {editingId ? <Edit3 className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
-                        {editingId ? 'Update Review' : 'Create Review'}
-                      </>
-                    )}
-                  </button>
-
-                  {editingId && (
-                    <button
-                      type="button"
-                      onClick={resetForm}
-                      className="px-8 py-4 bg-gray-200 text-black rounded-2xl font-bold"
-                    >
-                      Cancel
-                    </button>
-                  )}
-                </div>
-              </form>
-            </motion.div>
-
-            {/* REVIEW CARDS */}
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-black mb-8">
+            {/* Reviews List */}
+            <section className="admin-animate-in admin-animate-delay-2">
+              <h3 className="text-lg font-semibold text-[#2D3339] mb-4 font-serif">
                 All Reviews ({reviews.length})
-              </h2>
+              </h3>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {reviews.length === 0 ? (
-                  <p className="col-span-full text-center text-xl text-gray-500 py-12">
-                    No reviews yet. Add the first one above!
-                  </p>
-                ) : (
-                  reviews.map((review) => (
-                    <motion.div
-                      key={review._id}
-                      whileHover={{ y: -8 }}
-                      className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden flex flex-col"
-                    >
-                      <div className="p-8">
-                        <div className="flex items-center gap-4 mb-6">
+              {reviews.length === 0 ? (
+                <div className="admin-empty">
+                  <Star className="admin-empty-icon" />
+                  <h4 className="admin-empty-title">No reviews yet</h4>
+                  <p className="admin-empty-desc">Add your first customer testimonial above</p>
+                </div>
+              ) : (
+                <div className="admin-grid">
+                  {reviews.map((review) => (
+                    <div key={review._id} className="admin-item-card">
+                      <div className="admin-item-content">
+                        <div className="flex items-center gap-3 mb-4">
                           {review.photoUrl ? (
                             <img
                               src={review.photoUrl}
                               alt={review.name}
-                              className="w-16 h-16 rounded-full object-cover border-4 border-emerald-100 shadow-md"
+                              className="admin-avatar"
                             />
                           ) : (
-                            <div className="w-16 h-16 rounded-full bg-emerald-100 flex items-center justify-center text-2xl font-bold text-emerald-700 shadow-md">
+                            <div className="admin-avatar-placeholder">
                               {review.name.charAt(0).toUpperCase()}
                             </div>
                           )}
                           <div>
-                            <h3 className="font-bold text-black text-lg">{review.name}</h3>
-                            <div className="flex items-center gap-1 mt-1">
+                            <h4 className="font-semibold text-[#2D3339]">{review.name}</h4>
+                            <div className="admin-stars">
                               {[...Array(5)].map((_, i) => (
                                 <span
                                   key={i}
-                                  className={`text-xl ${i < review.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                                  className={`admin-star ${i < review.rating ? 'admin-star-filled' : ''}`}
                                 >
-                                  ★
+                                  *
                                 </span>
                               ))}
                             </div>
                           </div>
                         </div>
 
-                        <p className="text-gray-800 leading-relaxed line-clamp-5">
+                        <p className="admin-item-meta italic line-clamp-4">
                           "{review.reviewText}"
                         </p>
                       </div>
 
-                      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-8 py-5 border-t border-emerald-100">
-                        <div className="flex justify-between items-center">
+                      <div className="admin-item-footer">
+                        <div className="admin-item-actions">
                           <button
                             onClick={() => handleEdit(review)}
-                            className="flex items-center gap-2 text-emerald-700 font-semibold hover:text-emerald-800"
+                            className="admin-action-btn admin-action-btn-edit"
                           >
-                            <Edit3 className="w-5 h-5" /> Edit
+                            <Edit3 className="w-4 h-4" />
+                            Edit
                           </button>
                           <button
                             onClick={() => handleDelete(review._id)}
-                            className="flex items-center gap-2 text-red-600 font-semibold hover:text-red-800"
+                            className="admin-action-btn admin-action-btn-delete"
                           >
-                            <Trash2 className="w-5 h-5" /> Delete
+                            <Trash2 className="w-4 h-4" />
+                            Delete
                           </button>
                         </div>
                       </div>
-                    </motion.div>
-                  ))
-                )}
-              </div>
-            </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
           </div>
-        </div>
+        </main>
       </div>
     </PrivateRoute>
   );

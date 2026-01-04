@@ -1,26 +1,292 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   TRAVEL IN MAKKAH - Design System
+   "Sacred Serenity" - A refined, warm aesthetic for spiritual journeys
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ─── Core Color Palette ─── */
+  --color-gold: #C9A962;
+  --color-gold-light: #D4BC82;
+  --color-gold-dark: #A88B4A;
+
+  --color-midnight: #1E3A5F;
+  --color-midnight-light: #2A4A73;
+  --color-midnight-deep: #152A45;
+
+  --color-sage: #7D8B6E;
+  --color-sage-light: #9BAA8C;
+
+  /* ─── Neutral Tones ─── */
+  --color-warm-white: #FAF8F5;
+  --color-stone: #E8E3DA;
+  --color-stone-dark: #D4CEC3;
+  --color-charcoal: #2D3339;
+  --color-charcoal-light: #4A5158;
+  --color-muted: #6B7280;
+
+  /* ─── Semantic Colors ─── */
+  --background: var(--color-warm-white);
+  --foreground: var(--color-charcoal);
+  --primary: var(--color-midnight);
+  --secondary: var(--color-midnight-light);
+  --accent: var(--color-gold);
+
+  /* ─── Typography Scale ─── */
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-jakarta), system-ui, sans-serif;
+
+  /* ─── Spacing & Sizing ─── */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.5rem;
+
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 1px 2px rgba(45, 51, 57, 0.04);
+  --shadow-md: 0 4px 12px rgba(45, 51, 57, 0.06);
+  --shadow-lg: 0 8px 24px rgba(45, 51, 57, 0.08);
+  --shadow-xl: 0 16px 48px rgba(45, 51, 57, 0.1);
+  --shadow-gold: 0 8px 32px rgba(201, 169, 98, 0.2);
+  --shadow-midnight: 0 8px 32px rgba(30, 58, 95, 0.15);
+
+  /* ─── Transitions ─── */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #171717;
-  }
+/* ─── Base Styles ─── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* ─── Typography Utilities ─── */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* ─── Heading Styles ─── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--color-charcoal);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--color-gold);
+  color: white;
+}
+
+/* ─── Focus States ─── */
+:focus-visible {
+  outline: 2px solid var(--color-midnight);
+  outline-offset: 2px;
+}
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-stone);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-midnight);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-midnight-light);
+}
+
+/* ─── Custom Button Styles ─── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-midnight) 0%, var(--color-midnight-light) 100%);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-midnight);
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(30, 58, 95, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--color-midnight);
+  color: white;
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-midnight);
+  transition: all var(--transition-base);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--color-midnight-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-charcoal);
+  font-weight: 600;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-charcoal);
+  transition: all var(--transition-base);
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background: var(--color-charcoal);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ─── Card Styles ─── */
+.card {
+  background: white;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(232, 227, 218, 0.5);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* ─── Section Backgrounds ─── */
+.bg-warm {
+  background: var(--color-warm-white);
+}
+
+.bg-stone {
+  background: var(--color-stone);
+}
+
+/* ─── Gradient Text ─── */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Decorative Elements ─── */
+.gold-accent {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  border-radius: 2px;
+}
+
+/* ─── Islamic Geometric Pattern (subtle background) ─── */
+.pattern-islamic {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' fill='none' stroke='%23C9A962' stroke-width='0.5' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 30px 30px;
+}
+
+/* ─── Animations ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* ─── Input Styles ─── */
+.input-field {
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--color-stone);
+  border-radius: var(--radius-lg);
+  background: white;
+  font-size: 1rem;
+  color: var(--color-charcoal);
+  transition: all var(--transition-fast);
+}
+
+.input-field::placeholder {
+  color: var(--color-muted);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-midnight);
+  box-shadow: 0 0 0 4px rgba(30, 58, 95, 0.1);
+}
+
+/* ─── Responsive Adjustments ─── */
+@media (max-width: 768px) {
+  :root {
+    --radius-2xl: 1.5rem;
+    --radius-3xl: 2rem;
+  }
 }

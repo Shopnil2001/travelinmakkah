@@ -1,18 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Trash2, Edit3, Plus, Loader2 } from 'lucide-react';
-
+import { Trash2, Edit3, Plus, Loader2, X, FileText } from 'lucide-react';
 import api from '@/lib/api';
 import { useAuth } from '../../../../Provider/AuthProvider';
 import LoadingSpinner from '../../../../components/Loading';
 import PrivateRoute from '../../../../components/PrivateRoute';
 import AdminSidebar from '../../../../components/AdminSidebar';
-import ImageUploader from '../../../../components/ImageUploader'; // ← Your beautiful uploader
-
-const inputClass =
-  'w-full px-4 py-3 rounded-xl border border-gray-300 bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all text-sm';
+import ImageUploader from '../../../../components/ImageUploader';
+import '../admin.css';
 
 const AdminBlogPage = () => {
   const { user } = useAuth();
@@ -113,191 +109,188 @@ const AdminBlogPage = () => {
 
   return (
     <PrivateRoute adminOnly>
-      <div className="min-h-screen flex bg-gray-50">
+      <div className="admin-layout">
         <AdminSidebar />
 
-        <main className="flex-1 lg:ml-64 px-4 sm:px-6 lg:px-8 py-6">
-          <div className="max-w-7xl mx-auto space-y-8">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-              <h1 className="text-3xl font-bold text-black">
-                Manage Blogs
-              </h1>
-              <p className="text-gray-700 mt-2">
+        <main className="admin-content">
+          <div className="admin-content-wrapper">
+            {/* Header */}
+            <header className="admin-page-header admin-animate-in">
+              <h1 className="admin-page-title">Manage Blogs</h1>
+              <p className="admin-page-subtitle">
                 Create and manage spiritual guides and articles
               </p>
-            </motion.div>
+            </header>
 
-            <AnimatePresence>
-              {error && (
-                <motion.div
-                  initial={{ opacity: 0, y: -5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="bg-red-100 border border-red-300 text-red-800 px-4 py-3 rounded-lg"
-                >
-                  {error}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Error Alert */}
+            {error && (
+              <div className="admin-alert admin-alert-error admin-animate-in">
+                <span>{error}</span>
+                <button className="admin-alert-close" onClick={() => setError('')}>
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
 
-            {/* FORM */}
-            <div className="bg-white rounded-2xl shadow-xl border p-6 lg:p-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">
-                {editingId ? 'Edit Blog' : 'Create Blog'}
-              </h2>
-
-              <form onSubmit={handleSubmit} className="space-y-8">
-                {/* Image Uploader */}
-                <div>
+            {/* Form Card */}
+            <div className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
+              <div className="admin-card-header">
+                <h2 className="admin-card-title">
+                  {editingId ? 'Edit Blog' : 'Create New Blog'}
+                </h2>
+              </div>
+              <div className="admin-card-body">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Image Uploader */}
                   <ImageUploader
                     label="Blog Featured Image"
                     currentUrl={formData.imageUrl}
                     onUpload={(url) => setFormData({ ...formData, imageUrl: url })}
                     maxSizeMB={10}
                   />
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                  <input
-                    className={inputClass}
-                    placeholder="Blog Title"
-                    value={formData.title}
-                    onChange={e => setFormData({ ...formData, title: e.target.value })}
-                    required
-                  />
+                  <div className="admin-form-grid">
+                    <div>
+                      <label className="admin-label">Blog Title</label>
+                      <input
+                        className="admin-input"
+                        placeholder="Enter blog title"
+                        value={formData.title}
+                        onChange={e => setFormData({ ...formData, title: e.target.value })}
+                        required
+                      />
+                    </div>
 
-                  <input
-                    className={inputClass}
-                    placeholder="Author Name"
-                    value={formData.author}
-                    onChange={e => setFormData({ ...formData, author: e.target.value })}
-                    required
-                  />
+                    <div>
+                      <label className="admin-label">Author Name</label>
+                      <input
+                        className="admin-input"
+                        placeholder="Author name"
+                        value={formData.author}
+                        onChange={e => setFormData({ ...formData, author: e.target.value })}
+                        required
+                      />
+                    </div>
 
-                  <input
-                    className={inputClass}
-                    placeholder="Tags (comma separated)"
-                    value={formData.tags}
-                    onChange={e => setFormData({ ...formData, tags: e.target.value })}
-                  />
-                </div>
+                    <div className="admin-form-full">
+                      <label className="admin-label">Tags (comma-separated)</label>
+                      <input
+                        className="admin-input"
+                        placeholder="hajj, umrah, spirituality..."
+                        value={formData.tags}
+                        onChange={e => setFormData({ ...formData, tags: e.target.value })}
+                      />
+                    </div>
 
-                <textarea
-                  className={`${inputClass} min-h-[200px]`}
-                  placeholder="Write your blog content here..."
-                  value={formData.content}
-                  onChange={e => setFormData({ ...formData, content: e.target.value })}
-                  required
-                />
+                    <div className="admin-form-full">
+                      <label className="admin-label">Content</label>
+                      <textarea
+                        className="admin-input admin-textarea"
+                        rows={8}
+                        placeholder="Write your blog content here..."
+                        value={formData.content}
+                        onChange={e => setFormData({ ...formData, content: e.target.value })}
+                        required
+                      />
+                    </div>
 
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <button
-                    type="submit"
-                    disabled={formLoading}
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white py-3.5 px-6 rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg"
-                  >
-                    {formLoading ? (
-                      <>
-                        <Loader2 className="animate-spin w-5 h-5" />
-                        Saving...
-                      </>
-                    ) : editingId ? (
-                      <>
-                        <Edit3 className="w-5 h-5" />
-                        Update Blog
-                      </>
-                    ) : (
-                      <>
-                        <Plus className="w-5 h-5" />
-                        Create Blog
-                      </>
-                    )}
-                  </button>
+                    <div className="admin-form-full admin-form-actions">
+                      <button
+                        type="submit"
+                        disabled={formLoading}
+                        className="admin-btn admin-btn-primary flex-1 sm:flex-none"
+                      >
+                        {formLoading ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            {editingId ? <Edit3 className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                            {editingId ? 'Update Blog' : 'Create Blog'}
+                          </>
+                        )}
+                      </button>
 
-                  {editingId && (
-                    <button
-                      type="button"
-                      onClick={resetForm}
-                      className="px-6 py-3.5 bg-gray-200 hover:bg-gray-300 text-black rounded-xl font-semibold"
-                    >
-                      Cancel
-                    </button>
-                  )}
-                </div>
-              </form>
+                      {editingId && (
+                        <button
+                          type="button"
+                          onClick={resetForm}
+                          className="admin-btn admin-btn-secondary"
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
 
-            {/* BLOG LIST */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Blogs List */}
+            <section className="admin-animate-in admin-animate-delay-2">
+              <h3 className="text-lg font-semibold text-[#2D3339] mb-4 font-serif">
+                All Blogs ({blogs.length})
+              </h3>
+
               {blogs.length === 0 ? (
-                <p className="col-span-full text-center text-xl text-gray-500 py-12">
-                  No blogs yet. Create your first one above!
-                </p>
+                <div className="admin-empty">
+                  <FileText className="admin-empty-icon" />
+                  <h4 className="admin-empty-title">No blogs yet</h4>
+                  <p className="admin-empty-desc">Create your first blog post above</p>
+                </div>
               ) : (
-                blogs.map((blog) => (
-                  <motion.div
-                    key={blog._id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    whileHover={{ y: -8 }}
-                    className="bg-white rounded-2xl shadow-lg border overflow-hidden flex flex-col"
-                  >
-                    {blog.imageUrl && (
-                      <div className="relative h-48">
+                <div className="admin-grid">
+                  {blogs.map((blog) => (
+                    <div key={blog._id} className="admin-item-card">
+                      {blog.imageUrl && (
                         <img
                           src={blog.imageUrl}
                           alt={blog.title}
-                          className="w-full h-full object-cover"
+                          className="admin-item-image"
                         />
-                      </div>
-                    )}
-
-                    <div className="p-6 flex-1 flex flex-col">
-                      <h3 className="text-xl font-bold text-black line-clamp-2">
-                        {blog.title}
-                      </h3>
-                      <p className="text-sm text-gray-700 mt-1">
-                        By {blog.author}
-                      </p>
-
-                      {blog.tags?.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mt-3">
-                          {blog.tags.map(tag => (
-                            <span
-                              key={tag}
-                              className="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
                       )}
+                      <div className="admin-item-content">
+                        <h4 className="admin-item-title line-clamp-2">{blog.title}</h4>
+                        <p className="admin-item-meta">By {blog.author}</p>
 
-                      <p className="text-gray-700 mt-4 line-clamp-4 flex-1">
-                        {blog.content}
-                      </p>
+                        {blog.tags?.length > 0 && (
+                          <div className="flex flex-wrap gap-1.5 mt-3">
+                            {blog.tags.slice(0, 3).map(tag => (
+                              <span key={tag} className="admin-badge admin-badge-primary text-xs">
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
 
-                      <div className="flex justify-between items-center mt-6 pt-4 border-t">
-                        <button
-                          onClick={() => handleEdit(blog)}
-                          className="flex items-center gap-2 text-emerald-700 font-semibold"
-                        >
-                          <Edit3 size={18} />
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(blog._id)}
-                          className="flex items-center gap-2 text-red-600 font-semibold"
-                        >
-                          <Trash2 size={18} />
-                          Delete
-                        </button>
+                        <p className="admin-item-meta mt-3 line-clamp-3">{blog.content}</p>
+                      </div>
+
+                      <div className="admin-item-footer">
+                        <div className="admin-item-actions">
+                          <button
+                            onClick={() => handleEdit(blog)}
+                            className="admin-action-btn admin-action-btn-edit"
+                          >
+                            <Edit3 className="w-4 h-4" />
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(blog._id)}
+                            className="admin-action-btn admin-action-btn-delete"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                            Delete
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </motion.div>
-                ))
+                  ))}
+                </div>
               )}
-            </div>
+            </section>
           </div>
         </main>
       </div>
