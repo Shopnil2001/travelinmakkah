@@ -1,13 +1,21 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+// src/app/site/Contact/page.jsx
+'use client'
+import React, { useState } from 'react';
+import { Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Clock, Loader2, BookOpen } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Clock,
+  Loader2,
+  BookOpen,
+} from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import SearchParamsHandler from './SearchParamsHandler';
 
 const ContactUsPage = () => {
-  const searchParams = useSearchParams();
   const [isSending, setIsSending] = useState(false);
   const [pdfRequest, setPdfRequest] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,25 +25,19 @@ const ContactUsPage = () => {
     message: '',
   });
 
-  // Handle auto-fill from PDF redirect
-  useEffect(() => {
-    const pdfMessage = searchParams.get('pdf_message');
-    if (pdfMessage) {
-      setFormData(prev => ({
-        ...prev,
-        message: decodeURIComponent(pdfMessage)
-      }));
-      setPdfRequest(true);
+  // Called by SearchParamsHandler when pdf_message is present
+  const handlePdfMessage = (message) => {
+    setFormData((prev) => ({ ...prev, message }));
+    setPdfRequest(true);
 
-      // Scroll to form after a short delay
-      setTimeout(() => {
-        const formElement = document.getElementById('contact-form');
-        if (formElement) {
-          formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }, 500);
-    }
-  }, [searchParams]);
+    // Scroll to form smoothly
+    setTimeout(() => {
+      const formElement = document.getElementById('contact-form');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 500);
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -45,7 +47,6 @@ const ContactUsPage = () => {
     e.preventDefault();
     setIsSending(true);
 
-    // Determine subject based on whether this is a PDF request
     const subjectTitle = pdfRequest
       ? 'PDF Full Access Request'
       : 'General Contact Inquiry';
@@ -102,6 +103,11 @@ const ContactUsPage = () => {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] overflow-hidden">
+      {/* Suspense boundary for search params */}
+      <Suspense fallback={null}>
+        <SearchParamsHandler onPdfMessage={handlePdfMessage} />
+      </Suspense>
+
       {/* Subtle Background Pattern */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.02]">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -116,7 +122,6 @@ const ContactUsPage = () => {
 
       {/* Hero Section */}
       <section className="relative pt-20 pb-16 px-6 md:px-12 lg:px-20">
-        {/* Decorative elements */}
         <div className="absolute top-12 left-12 w-24 h-24 opacity-10">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="48" stroke="#C9A962" strokeWidth="1"/>
@@ -136,7 +141,6 @@ const ContactUsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Eyebrow */}
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C9A962]"></div>
                 <span className="text-[#C9A962] font-medium text-sm tracking-[0.3em] uppercase">
@@ -145,7 +149,6 @@ const ContactUsPage = () => {
                 <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C9A962]"></div>
               </div>
 
-              {/* Main Title */}
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#2D3339] mb-6 tracking-tight">
                 Contact
                 <span className="block mt-2">
@@ -177,8 +180,7 @@ const ContactUsPage = () => {
       <section className="relative pb-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-
-            {/* Contact Form - Left Side */}
+            {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -187,7 +189,6 @@ const ContactUsPage = () => {
               className="lg:col-span-7 order-2 lg:order-1"
             >
               <div className="relative">
-                {/* Decorative frame */}
                 <div className="absolute -inset-3 border-2 border-[#C9A962]/10 rounded-[2rem] transform -rotate-1"></div>
                 <div className="absolute -inset-3 bg-gradient-to-br from-[#C9A962]/5 via-transparent to-[#1E3A5F]/5 rounded-[2rem] transform rotate-1"></div>
 
@@ -211,7 +212,6 @@ const ContactUsPage = () => {
                     </motion.div>
                   )}
 
-                  {/* Form Header */}
                   <div className="mb-10">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="w-10 h-[2px] bg-gradient-to-r from-[#C9A962] to-transparent"></div>
@@ -224,11 +224,8 @@ const ContactUsPage = () => {
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {/* Name Field */}
                     <div>
-                      <label className="block text-sm font-medium text-[#2D3339] mb-2">
-                        Full Name
-                      </label>
+                      <label className="block text-sm font-medium text-[#2D3339] mb-2">Full Name</label>
                       <input
                         type="text"
                         name="name"
@@ -240,12 +237,9 @@ const ContactUsPage = () => {
                       />
                     </div>
 
-                    {/* Phone & Email */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-sm font-medium text-[#2D3339] mb-2">
-                          Phone Number
-                        </label>
+                        <label className="block text-sm font-medium text-[#2D3339] mb-2">Phone Number</label>
                         <input
                           type="text"
                           name="mobile"
@@ -257,9 +251,7 @@ const ContactUsPage = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-[#2D3339] mb-2">
-                          Email Address
-                        </label>
+                        <label className="block text-sm font-medium text-[#2D3339] mb-2">Email Address</label>
                         <input
                           type="email"
                           name="email"
@@ -272,11 +264,8 @@ const ContactUsPage = () => {
                       </div>
                     </div>
 
-                    {/* Message */}
                     <div>
-                      <label className="block text-sm font-medium text-[#2D3339] mb-2">
-                        Your Message
-                      </label>
+                      <label className="block text-sm font-medium text-[#2D3339] mb-2">Your Message</label>
                       <textarea
                         name="message"
                         placeholder="Tell us about your pilgrimage plans or any questions you have..."
@@ -287,7 +276,6 @@ const ContactUsPage = () => {
                       />
                     </div>
 
-                    {/* Submit Button */}
                     <motion.button
                       whileHover={{ scale: 1.01 }}
                       whileTap={{ scale: 0.98 }}
@@ -312,7 +300,7 @@ const ContactUsPage = () => {
               </div>
             </motion.div>
 
-            {/* Contact Info - Right Side */}
+            {/* Contact Info Sidebar */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -321,7 +309,6 @@ const ContactUsPage = () => {
               className="lg:col-span-5 order-1 lg:order-2"
             >
               <div className="lg:sticky lg:top-32 space-y-8">
-                {/* Header */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-[2px] bg-gradient-to-r from-[#C9A962] to-transparent"></div>
@@ -336,7 +323,6 @@ const ContactUsPage = () => {
                   </p>
                 </div>
 
-                {/* Contact Cards */}
                 <div className="space-y-4">
                   {contactInfo.map((info, index) => (
                     <motion.div
@@ -348,12 +334,9 @@ const ContactUsPage = () => {
                       className="group"
                     >
                       <div className="flex items-start gap-5 p-5 bg-white rounded-2xl border border-[#E8E3DA] hover:border-[#C9A962]/30 hover:shadow-[0_10px_40px_-15px_rgba(201,169,98,0.15)] transition-all duration-300">
-                        {/* Icon */}
                         <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#C9A962] to-[#B8954F] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-lg">
                           <info.icon className="w-6 h-6 text-white" />
                         </div>
-
-                        {/* Content */}
                         <div className="pt-1">
                           <h3 className="font-semibold text-[#2D3339] mb-1 group-hover:text-[#C9A962] transition-colors">{info.title}</h3>
                           {info.lines.map((line, i) => (
@@ -365,7 +348,6 @@ const ContactUsPage = () => {
                   ))}
                 </div>
 
-                {/* Trust Badge */}
                 <div className="p-6 bg-gradient-to-br from-[#1E3A5F] to-[#152a45] rounded-2xl text-center">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#C9A962]/20 flex items-center justify-center">
                     <svg className="w-8 h-8 text-[#C9A962]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -391,7 +373,6 @@ const ContactUsPage = () => {
 
       {/* Bottom CTA Section */}
       <section className="relative py-20 px-6 md:px-12 lg:px-20 bg-gradient-to-br from-[#1E3A5F] to-[#152a45] overflow-hidden">
-        {/* Background decorations */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-1/4 w-64 h-64 rounded-full border border-[#C9A962]"></div>
           <div className="absolute bottom-0 right-1/4 w-48 h-48 rounded-full border border-white"></div>
