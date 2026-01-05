@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import api from '@/lib/api';
 import emailjs from '@emailjs/browser';
+import FloatingInput from '../../../../../components/ui/FloatingInput';
 
 const PackageDetailsPage = () => {
   const { id } = useParams();
@@ -69,43 +70,7 @@ const PackageDetailsPage = () => {
   };
 
   // Floating label input component
-  const FloatingInput = ({ name, label, type = 'text', value, onChange, required = false, delay = 0 }) => {
-    const isActive = focusedField === name || value;
-    return (
-      <div
-        className="relative animate-fade-in-up"
-        style={{ animationDelay: `${delay}ms` }}
-      >
-        <input
-          type={type}
-          name={name}
-          id={name}
-          value={value}
-          onChange={onChange}
-          onFocus={() => setFocusedField(name)}
-          onBlur={() => setFocusedField(null)}
-          required={required}
-          className="peer w-full px-4 pt-6 pb-3 bg-white border-2 border-[var(--color-stone)] rounded-xl
-                     text-[var(--color-charcoal)] text-base font-medium
-                     focus:outline-none focus:border-[var(--color-gold)] focus:ring-4 focus:ring-[var(--color-gold)]/10
-                     transition-all duration-300 placeholder-transparent"
-          placeholder={label}
-        />
-        <label
-          htmlFor={name}
-          className={`absolute left-4 transition-all duration-300 pointer-events-none font-medium
-                     ${isActive
-                       ? 'top-2 text-xs text-[var(--color-gold-dark)]'
-                       : 'top-1/2 -translate-y-1/2 text-[var(--color-muted)] text-base'
-                     }
-                     peer-focus:top-2 peer-focus:text-xs peer-focus:text-[var(--color-gold-dark)] peer-focus:translate-y-0`}
-        >
-          {label}{required && ' *'}
-        </label>
-      </div>
-    );
-  };
-
+  
   // Loading state with golden theme
   if (!pkg) {
     return (
@@ -287,88 +252,95 @@ const PackageDetailsPage = () => {
 
                   {/* Booking Form */}
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 gap-5">
-                      <FloatingInput
-                        name="fullName"
-                        label="Full Name (as per passport)"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        required
-                        delay={350}
-                      />
-                      <FloatingInput
-                        name="mobileNumber"
-                        label="Mobile Number"
-                        type="tel"
-                        value={formData.mobileNumber}
-                        onChange={handleChange}
-                        required
-                        delay={400}
-                      />
-                      <FloatingInput
-                        name="email"
-                        label="Email Address"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        delay={450}
-                      />
-                      <FloatingInput
-                        name="passportNo"
-                        label="Passport Number"
-                        value={formData.passportNo}
-                        onChange={handleChange}
-                        required
-                        delay={500}
-                      />
-                    </div>
-
-                    {/* Submit Button */}
-                    <div className="pt-4 animate-fade-in-up" style={{ animationDelay: '550ms' }}>
-                      <button
-                        type="submit"
-                        disabled={isSending}
-                        className="relative w-full py-4 px-8 rounded-xl font-semibold text-lg text-white
-                                 bg-gradient-to-r from-[var(--color-gold)] via-[var(--color-gold-dark)] to-[var(--color-gold)]
-                                 background-size-200 bg-left hover:bg-right
-                                 shadow-lg shadow-[var(--color-gold)]/30
-                                 transition-all duration-500
-                                 hover:shadow-xl hover:shadow-[var(--color-gold)]/40 hover:-translate-y-0.5
-                                 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0
-                                 overflow-hidden group"
-                        style={{ backgroundSize: '200% 100%' }}
-                      >
-                        <span className="relative z-10 flex items-center justify-center gap-2">
-                          {isSending ? (
-                            <>
-                              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                              </svg>
-                              Processing...
-                            </>
-                          ) : (
-                            <>
-                              Confirm Booking Request
-                              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                              </svg>
-                            </>
-                          )}
-                        </span>
-                      </button>
-                    </div>
-
-                    {/* Security Note */}
-                    <p className="text-center text-xs text-[var(--color-muted)] pt-2 animate-fade-in-up"
-                       style={{ animationDelay: '600ms' }}>
-                      <svg className="w-4 h-4 inline-block mr-1 -mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                      </svg>
-                      Your information is secure and encrypted
-                    </p>
-                  </form>
+                                      <div className="grid grid-cols-1 gap-5">
+                                        <FloatingInput
+                                          name="fullName"
+                                          label="Full Name (as per passport)"
+                                          value={formData.fullName}
+                                          onChange={handleChange}
+                                          required
+                                          delay={350}
+                                          focusedField={focusedField}
+                                          setFocusedField={setFocusedField}
+                                        />
+                                        <FloatingInput
+                                          name="mobileNumber"
+                                          label="Mobile Number"
+                                          type="tel"
+                                          value={formData.mobileNumber}
+                                          onChange={handleChange}
+                                          required
+                                          delay={400}
+                                          focusedField={focusedField}
+                                          setFocusedField={setFocusedField}
+                                        />
+                                        <FloatingInput
+                                          name="email"
+                                          label="Email Address"
+                                          type="email"
+                                          value={formData.email}
+                                          onChange={handleChange}
+                                          required
+                                          delay={450}
+                                          focusedField={focusedField}
+                                          setFocusedField={setFocusedField}
+                                        />
+                                        <FloatingInput
+                                          name="passportNo"
+                                          label="Passport Number"
+                                          value={formData.passportNo}
+                                          onChange={handleChange}
+                                          required
+                                          delay={500}
+                                          focusedField={focusedField}
+                                          setFocusedField={setFocusedField}
+                                        />
+                                      </div>
+                  
+                                      {/* Submit Button & Security Note - UNCHANGED */}
+                                      <div className="pt-4 animate-fade-in-up" style={{ animationDelay: '550ms' }}>
+                                        <button
+                                          type="submit"
+                                          disabled={isSending}
+                                          className="relative w-full py-4 px-8 rounded-xl font-semibold text-lg text-white
+                                                   bg-gradient-to-r from-[var(--color-gold)] via-[var(--color-gold-dark)] to-[var(--color-gold)]
+                                                   background-size-200 bg-left hover:bg-right
+                                                   shadow-lg shadow-[var(--color-gold)]/30
+                                                   transition-all duration-500
+                                                   hover:shadow-xl hover:shadow-[var(--color-gold)]/40 hover:-translate-y-0.5
+                                                   disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0
+                                                   overflow-hidden group"
+                                          style={{ backgroundSize: '200% 100%' }}
+                                        >
+                                          <span className="relative z-10 flex items-center justify-center gap-2">
+                                            {isSending ? (
+                                              <>
+                                                <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                                                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                Processing...
+                                              </>
+                                            ) : (
+                                              <>
+                                                Confirm Booking Request
+                                                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                </svg>
+                                              </>
+                                            )}
+                                          </span>
+                                        </button>
+                                      </div>
+                  
+                                      <p className="text-center text-xs text-[var(--color-muted)] pt-2 animate-fade-in-up"
+                                         style={{ animationDelay: '600ms' }}>
+                                        <svg className="w-4 h-4 inline-block mr-1 -mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                          <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                                        </svg>
+                                        Your information is secure and encrypted
+                                      </p>
+                                    </form>
                 </div>
               </div>
             </div>

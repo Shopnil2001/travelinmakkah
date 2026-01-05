@@ -11,8 +11,14 @@ export default function SearchParamsHandler({ onPdfMessage }) {
   useEffect(() => {
     if (pdfMessage) {
       onPdfMessage(decodeURIComponent(pdfMessage));
+      
+      // Optional: Clean the URL without reloading
+      // window.history.replaceState({}, '', window.location.pathname);
     }
-  }, [pdfMessage, onPdfMessage]);
+  }, [pdfMessage]); // ← Only runs when pdfMessage changes
 
-  return null; // This component only handles side effects
+  // Remove dependency on onPdfMessage to avoid unnecessary re-runs
+  // (onPdfMessage is stable from parent)
+
+  return null;
 }
