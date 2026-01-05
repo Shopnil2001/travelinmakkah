@@ -205,7 +205,7 @@ const Footer = () => {
           </h2>
 
           <Link
-            href="/site/Visa"
+            href="/site/Umrah"
             className="inline-flex items-center px-6 md:px-8 py-3 md:py-3.5 bg-[#D4A84B] hover:bg-[#C49A3D] text-white font-medium text-sm md:text-base rounded-md transition-all duration-300 hover:shadow-lg hover:shadow-[#D4A84B]/25"
           >
             Request for Umrah Booking Online

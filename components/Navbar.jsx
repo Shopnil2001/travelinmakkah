@@ -44,7 +44,7 @@ const Navbar = () => {
     { name: "Hajj", href: "/site/Hajj" },
     { name: "Umrah", href: "/site/Umrah" },
     { name: "Visa", href: "/site/Visa" },
-    { name: "Book Flights & Hotels", href: "/site/book" },
+    { name: "Book Hotels", href: "/site/book" },
     { name: "Hajj Guide", href: "/site/Hajj-Guide" },
     { name: "Umrah Guide", href: "/site/Umrah-Guide" },
     { name: "Complete Guideline Book", href: "/site/Guideline-Book" },
