@@ -19,9 +19,16 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "Travel In Makkah | Trusted Hajj & Umrah Agency",
+  title: {
+    /** Dynamic title updates on each page AUTOMATICALLY */
+    template: "%s | Travel In Makkah",  // ← MAGIC LINE
+    default: "Travel In Makkah | Trusted Hajj & Umrah Agency",  // Fallback
+  },
   description: "Your trusted companion for sacred journeys. Experience spiritually fulfilling Hajj and Umrah pilgrimages with complete guidance and care.",
   keywords: "Hajj, Umrah, pilgrimage, Makkah, Madinah, Islamic travel, Bangladesh",
+  icons: {
+    icon: "/3Dlogo.webp",
+  },
 };
 
 export default function RootLayout({ children }) {
