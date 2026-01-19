@@ -1,25 +1,32 @@
 // app/sitemap.js
-export const revalidate = 3600; // Automatically re-generate the sitemap every hour
+export const revalidate = 3600;
 
 export default async function sitemap() {
   const baseUrl = "https://travelinmakkah.com";
 
   try {
-    // 1. Fetch all blogs from your backend API
     const response = await fetch("https://travelinmakkah-backend.vercel.app/api/blogs", {
-      next: { revalidate: 3600 } 
+      next: { revalidate: 3600 }
     });
+    
+    if (!response.ok) throw new Error("Failed to fetch blogs");
     const blogs = await response.json();
 
-    // 2. Map the blogs to the sitemap format
-    const blogUrls = blogs.map((blog) => ({
-      url: `${baseUrl}/${blog.slug}`, // e.g., https://travelinmakkah.com/how-to-find-lost...
-      lastModified: new Date(blog.updatedAt || blog.createdAt),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    }));
+    const blogUrls = blogs.map((blog) => {
+      // SAFE DATE CHECK:
+      // If blog.updatedAt is null/invalid, use current date
+      const rawDate = blog.updatedAt || blog.createdAt;
+      const parsedDate = new Date(rawDate);
+      const finalDate = isNaN(parsedDate.getTime()) ? new Date() : parsedDate;
 
-    // 3. Return static pages + your automated blog pages
+      return {
+        url: `${baseUrl}/${blog.slug}`,
+        lastModified: finalDate,
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      };
+    });
+
     return [
       {
         url: baseUrl,
@@ -30,7 +37,8 @@ export default async function sitemap() {
       ...blogUrls,
     ];
   } catch (error) {
-    console.error("Sitemap fetch failed:", error);
-    return [{ url: baseUrl, lastModified: new Date() }]; // Fallback
+    console.error("Sitemap automation error:", error);
+    // Fallback so the build doesn't fail
+    return [{ url: baseUrl, lastModified: new Date() }];
   }
 }
