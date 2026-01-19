@@ -32,10 +32,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
-      <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182060166306956"  ></script>
-      </head>
+      
       <body className="antialiased bg-[#FAF8F5]">
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182060166306956"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
         <Providers>
           <Navbar />
           <main>{children}</main>
