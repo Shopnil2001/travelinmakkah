@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
         {/* Standard HTML Script with hydration bypass */}
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182060166306956"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8182060166306956"
           crossOrigin="anonymous"
           // This prevents Next.js from adding data-nscript
           dangerouslySetInnerHTML={{ __html: '' }}
