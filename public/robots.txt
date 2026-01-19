@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# This ensures AdSense crawlers can always reach your ads.txt
+User-agent: Mediapartners-Google
+Allow: /
+
+# This points Google to your automated sitemap for indexing
+Sitemap: https://travelinmakkah.com/sitemap.xml

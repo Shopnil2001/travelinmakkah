@@ -34,12 +34,16 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
       
       <body className="antialiased bg-[#FAF8F5]">
-        <Script
+     <head>
+        {/* Standard HTML Script with hydration bypass */}
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182060166306956"
-          strategy="afterInteractive"
           crossOrigin="anonymous"
+          // This prevents Next.js from adding data-nscript
+          dangerouslySetInnerHTML={{ __html: '' }}
         />
+      </head>
         <Providers>
           <Navbar />
           <main>{children}</main>
