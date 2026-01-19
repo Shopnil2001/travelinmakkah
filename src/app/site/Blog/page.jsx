@@ -600,7 +600,7 @@ const BlogPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {paginatedBlogs.map((blog, index) => (
                 <Link
-                  href={`/${blog.slug || blog._id}/`}
+                  href={`/${blog.slug || blog._id}`}
                   key={blog._id}
                   className="group"
                 >
