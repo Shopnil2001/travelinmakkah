@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { Upload, X, Loader2, Image as ImageIcon, AlertCircle } from 'lucide-react';
 
 const ImageUploader = ({
@@ -10,13 +10,18 @@ const ImageUploader = ({
   maxSizeMB = 5,
   aspectRatio = 16/9,
   className = "",
-  required = false, // ← My suggestion: add required prop
+  required = false,
 }) => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [preview, setPreview] = useState(currentUrl || null);
   const [dragActive, setDragActive] = useState(false);
   const inputRef = useRef(null);
+
+  // Sync preview with currentUrl when it changes (e.g., when editing a different product)
+  useEffect(() => {
+    setPreview(currentUrl || null);
+  }, [currentUrl]);
 
   const validateFile = (file) => {
     if (!file.type.startsWith('image/')) {
@@ -184,7 +189,7 @@ const ImageUploader = ({
         )}
       </div>
 
-      {/* Hidden Input */}
+      {/* Hidden Input - Note: required validation is handled at form level, not here */}
       <input
         ref={inputRef}
         type="file"
@@ -192,7 +197,6 @@ const ImageUploader = ({
         onChange={handleFileChange}
         disabled={uploading}
         className="hidden"
-        required={required}
       />
 
       {/* Error Message */}

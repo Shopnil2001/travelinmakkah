@@ -166,7 +166,7 @@ const Hero = () => {
     <section
       ref={sectionRef}
       onClick={handleEnableAudio}
-      className="relative min-h-[90vh] lg:min-h-screen w-full overflow-hidden flex items-center"
+      className="relative min-h-[100svh] w-full overflow-hidden flex items-center pt-24 sm:pt-28 lg:pt-24 xl:pt-28 pb-16 lg:pb-20"
       style={{ cursor: !audioEnabled ? 'pointer' : undefined }}
     >
       {/* Background Audio */}
@@ -178,11 +178,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.5 }}
-          className="absolute top-6 right-6 z-30 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 pointer-events-none"
+          className="absolute top-24 right-6 sm:top-28 lg:top-24 xl:top-28 z-30 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20 pointer-events-none"
         >
           <span className="text-white/80 text-sm flex items-center gap-2">
             <Volume2 className="w-4 h-4" />
-            Click anywhere to enable audio
+            Click to enable audio
           </span>
         </motion.div>
       )}
@@ -216,6 +216,7 @@ const Hero = () => {
           autoPlay
           loop
           muted
+          preload='auto'
           playsInline
           className="h-full w-full object-cover"
         >
@@ -235,21 +236,21 @@ const Hero = () => {
           className="max-w-4xl"
         >
           {/* Trust Badge */}
-          <motion.div variants={itemVariants} className="mb-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+          <motion.div variants={itemVariants} className="mb-4 sm:mb-6">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
               <div className="flex -space-x-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-[#6796dd] fill-[#6796dd]" />
+                  <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#6796dd] fill-[#6796dd]" />
                 ))}
               </div>
-              <span className="text-white/90 text-sm font-medium">Trusted by Worldwide Pilgrims</span>
+              <span className="text-white/90 text-xs sm:text-sm font-medium">5-Star Pilgrimage Experience</span>
             </div>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-medium leading-[1.1] tracking-tight text-white mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-medium leading-[1.1] tracking-tight text-white mb-4 sm:mb-6"
           >
             <span className="text-white">Your Sacred Journey</span>
             <br />
@@ -259,17 +260,17 @@ const Hero = () => {
           {/* Subtitle */}
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-white/90 max-w-2xl leading-relaxed mb-10"
+            className="text-base sm:text-lg md:text-xl text-white/90 max-w-2xl leading-relaxed mb-6 sm:mb-10"
           >
             Experience spiritually fulfilling Hajj and Umrah pilgrimages with complete
             guidance, premium accommodations, and unwavering care every step of the way.
           </motion.p>
 
           {/* CTA Buttons */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               href="/site/Hajj"
-              className="group inline-flex items-center gap-3 px-8 py-4 text-base font-semibold text-[#1E3A5F] rounded-xl transition-all duration-300 bg-white hover:bg-[#F5F5F5]"
+              className="group inline-flex items-center justify-center sm:justify-start gap-3 px-6 sm:px-8 py-3.5 sm:py-4 text-base font-semibold text-[#1E3A5F] rounded-xl transition-all duration-300 bg-white hover:bg-[#F5F5F5]"
               style={{
                 boxShadow: '0 8px 32px rgba(255, 255, 255, 0.2)'
               }}
@@ -280,7 +281,7 @@ const Hero = () => {
 
             <Link
               href="/site/Contact"
-              className="inline-flex items-center gap-3 px-8 py-4 text-base font-semibold text-white border-2 border-white/30 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
+              className="inline-flex items-center justify-center sm:justify-start gap-3 px-6 sm:px-8 py-3.5 sm:py-4 text-base font-semibold text-white border-2 border-white/30 rounded-xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300"
             >
               Speak With Us
             </Link>
@@ -289,20 +290,20 @@ const Hero = () => {
           {/* Stats */}
           <motion.div
             variants={itemVariants}
-            className="mt-16 pt-10 border-t border-white/20"
+            className="mt-10 sm:mt-16 pt-8 sm:pt-10 border-t border-white/20"
           >
-            <div className="grid grid-cols-3 gap-8 max-w-lg">
-              <div>
-                <p className="text-3xl lg:text-4xl font-display font-semibold text-white">15+</p>
-                <p className="text-sm text-white/70 mt-1">Years Experience</p>
+            <div className="grid grid-cols-3 gap-4 sm:gap-8 max-w-lg">
+              <div className="text-center sm:text-left">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-white">24/7</p>
+                <p className="text-xs sm:text-sm text-white/70 mt-1">Support Available</p>
               </div>
-              <div>
-                <p className="text-3xl lg:text-4xl font-display font-semibold text-white">10K+</p>
-                <p className="text-sm text-white/70 mt-1">Happy Pilgrims</p>
+              <div className="text-center sm:text-left">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-white">Complete</p>
+                <p className="text-xs sm:text-sm text-white/70 mt-1">Pilgrimage Guidance</p>
               </div>
-              <div>
-                <p className="text-3xl lg:text-4xl font-display font-semibold text-white">4.9</p>
-                <p className="text-sm text-white/70 mt-1">Star Rating</p>
+              <div className="text-center sm:text-left">
+                <p className="text-2xl sm:text-3xl lg:text-4xl font-display font-semibold text-white">Premium</p>
+                <p className="text-xs sm:text-sm text-white/70 mt-1">Accommodations</p>
               </div>
             </div>
           </motion.div>

@@ -8,7 +8,7 @@ import {
   Phone,
   ArrowUp,
   Facebook,
-  Linkedin,
+  Instagram,
   Youtube,
   ChevronRight,
   Mail,
@@ -148,37 +148,35 @@ const Footer = () => {
   // Navigation data matching reference exactly
   const aboutLinks = [
     { name: "Management Board", href: "/site/About" },
-    { name: "Sharia Consultant", href: "/site/About#sharia" },
-    { name: "Umrah Guide", href: "/site/Umrah-Guide" },
+    { name: "Sharia Consultant", href: "/site/About" },
+    { name: "Umrah Guide", href: "/site/Umrah" },
     { name: "Client Testimonials", href: "/#reviews" },
     { name: "Hours and Location", href: "/site/Contact" },
   ];
 
   const guidanceLinks = [
-    { name: "Umrah Guideline English", href: "/site/Umrah-Guide" },
-    { name: "Umrah Guideline Bangla", href: "/site/Umrah-Guide-Bangla" },
+    { name: "Hajj Guideline", href: "/site/Hajj" },
+    { name: "Umrah Guideline", href: "/site/Umrah" },
   ];
 
   const facilitiesLinks = [
-    { name: "Visa Processing", href: "/site/Visa" },
-    { name: "Hotel Booking", href: "/site/Hajj" },
-    { name: "Ziyarat Tours", href: "/site/Umrah" },
-    { name: "Airline Ticketing", href: "/site/Hajj" },
-    { name: "Umrah Training", href: "/site/Umrah-Guide" },
+    { name: "Hotel Booking", href: "/site/book" },
+    { name: "Ziyarat Tours", href: "/site/book" },
+    { name: "Umrah Training", href: "/site/Umrah" },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: "google", href: "#", label: "Google" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/travelinmakkah", label: "Facebook" },
+    { icon: Youtube, href: "https://www.youtube.com/@travelinmakkah-sn2iy", label: "YouTube" },
+    { icon: Instagram, href: "https://www.instagram.com/travelinmakkah/", label: "Instagram" },
+    { icon: "tiktok", href: "https://www.tiktok.com/@travel.in.makkah", label: "TikTok" },
+    { icon: "pinterest", href: "https://www.pinterest.com/travelinmakkah/", label: "Pinterest" },
   ];
 
   const bottomLinks = [
     { name: "About Us", href: "/site/About" },
-    { name: "Privacy Policy", href: "/site/Privacy" },
+    { name: "Privacy Policy", href: "/site/PrivacyPolicy" },
     { name: "Contact Us", href: "/site/Contact" },
-    { name: "Sitemap", href: "/site/Sitemap" },
   ];
 
   // Custom Google icon component
@@ -191,16 +189,30 @@ const Footer = () => {
     </svg>
   );
 
+  // Custom TikTok icon component
+  const TikTokIcon = () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+    </svg>
+  );
+
+  // Custom Pinterest icon component
+  const PinterestIcon = () => (
+    <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+      <path d="M12 0a12 12 0 0 0-4.37 23.17c-.1-.94-.2-2.4.04-3.43l1.4-5.96s-.36-.72-.36-1.78c0-1.67.97-2.92 2.17-2.92 1.02 0 1.52.77 1.52 1.69 0 1.03-.66 2.57-.99 4-.28 1.19.6 2.16 1.77 2.16 2.13 0 3.76-2.25 3.76-5.49 0-2.87-2.06-4.88-5-4.88-3.41 0-5.41 2.56-5.41 5.2 0 1.03.4 2.13.89 2.73.1.12.11.22.08.35l-.33 1.36c-.05.22-.18.27-.4.16-1.5-.7-2.43-2.89-2.43-4.65 0-3.78 2.75-7.26 7.92-7.26 4.16 0 7.4 2.97 7.4 6.93 0 4.14-2.61 7.46-6.23 7.46-1.22 0-2.36-.63-2.75-1.38l-.75 2.85c-.27 1.04-1 2.35-1.49 3.15A12 12 0 1 0 12 0z" />
+    </svg>
+  );
+
   return (
     <footer className="relative">
       {/* ══════════════════════════════════════════════════════════════════════
           CTA Section - Warm Cream Background
       ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative bg-white py-28 md:py-36 lg:py-44 xl:py-52 px-6 md:px-12 lg:px-20">
+      <section className="relative bg-white py-16 sm:py-24 md:py-32 lg:py-40 xl:py-48 px-4 sm:px-6 md:px-12 lg:px-20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-display text-[1.75rem] md:text-[2rem] lg:text-[2.5rem] text-[#2D3339] mb-6 md:mb-8 leading-[1.25] tracking-[-0.01em] italic">
-            Apply for your Umrah visa today and embark on a 
-            <br className="hidden sm:block" />
+          <h2 className="font-display text-xl sm:text-2xl md:text-[2rem] lg:text-[2.5rem] text-[#2D3339] mb-4 sm:mb-6 md:mb-8 leading-[1.25] tracking-[-0.01em] italic">
+            Apply for your Umrah visa today and embark on a
+            <br className="hidden md:block" />
             hassle-free spiritual journey to the holy city of Makkah.
           </h2>
 
@@ -216,9 +228,9 @@ const Footer = () => {
       {/* ══════════════════════════════════════════════════════════════════════
           Decorative Mosque Silhouette Border
       ══════════════════════════════════════════════════════════════════════ */}
-      <div className="relative w-full h-[90px] md:h-[130px] lg:h-[170px] bg-[#243d4d] overflow-hidden">
+      <div className="relative w-full h-[60px] sm:h-[90px] md:h-[130px] lg:h-[170px] bg-[#243d4d] overflow-hidden">
         <Image
-          src="/footer-border.png"
+          src="/footer-border.webp"
           alt=""
           fill
           className="object-cover object-bottom"
@@ -239,7 +251,7 @@ const Footer = () => {
           ref={parallaxRef}
           className="absolute inset-x-0 top-0 bottom-0 bg-cover bg-no-repeat"
           style={{
-            backgroundImage: "url('/extra footer-bg-2.jpg')",
+            backgroundImage: "url('/extra footer-bg-2.webp')",
             backgroundPosition: "center top",
           }}
         />
@@ -260,13 +272,15 @@ const Footer = () => {
               <div className="lg:col-span-4 space-y-6">
                 {/* Logo */}
                 <div className="mb-6">
-                  <Image
-                    src="/logo.png"
-                    alt="Travel In Makkah"
-                    width={220}
-                    height={130}
-                    className='drop-shadow-[0_2px_8px_rgba(255,255,255,1)]'
-                  />
+                  <div className="relative h-12 w-[120px] sm:h-14 sm:w-[140px] md:h-16 md:w-[160px] lg:h-[88px] lg:w-[220px]">
+                    <Image
+                      src="/3Dlogo.webp"
+                      alt="Travel In Makkah"
+                      fill
+                      className="object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,1)]"
+                      sizes="(max-width: 640px) 120px, (max-width: 768px) 140px, (max-width: 1024px) 160px, (max-width: 1280px) 180px, 200px"
+                    />
+                  </div>
                 </div>
 
                 {/* Corporate Office */}
@@ -277,26 +291,36 @@ const Footer = () => {
 
                   <div className="space-y-3">
                     <a
-                      href="https://maps.google.com"
+                      href="https://maps.google.com/?q=C4M2+XJ5,+Al+Adamah,+Dammam+32242,+Saudi+Arabia"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-start gap-2.5 text-white/75 text-[13px] leading-relaxed hover:text-white transition-colors duration-200 group"
                     >
                       <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-white/60 group-hover:text-white/90" />
                       <span className="underline decoration-white/30 underline-offset-2 group-hover:decoration-white/60">
-                        The Forecastle, Suite No. 4/A, 3rd Floor, Road 23/B
+                        C4M2+XJ5, Al Adamah
                         <br />
-                        Gulshan 01, Dhaka 1212, Bangladesh
+                        Dammam 32242, Saudi Arabia
                       </span>
                     </a>
 
                     <a
-                      href="tel:+8801713155258"
+                      href="tel:+966509779723"
                       className="flex items-center gap-2.5 text-white/75 text-[13px] hover:text-white transition-colors duration-200 group"
                     >
                       <Phone className="w-4 h-4 flex-shrink-0 text-white/60 group-hover:text-white/90" />
                       <span className="underline decoration-white/30 underline-offset-2 group-hover:decoration-white/60">
-                        +8801713155258
+                        +966509779723
+                      </span>
+                    </a>
+
+                    <a
+                      href="mailto:info@travelinmakkah.com"
+                      className="flex items-center gap-2.5 text-white/75 text-[13px] hover:text-white transition-colors duration-200 group"
+                    >
+                      <Mail className="w-4 h-4 flex-shrink-0 text-white/60 group-hover:text-white/90" />
+                      <span className="underline decoration-white/30 underline-offset-2 group-hover:decoration-white/60">
+                        info@travelinmakkah.com
                       </span>
                     </a>
                   </div>
@@ -310,7 +334,9 @@ const Footer = () => {
                   <div className="flex items-center gap-4">
                     {socialLinks.map((social, index) => {
                       const isGoogle = social.icon === "google";
-                      const Icon = isGoogle ? GoogleIcon : social.icon;
+                      const isTikTok = social.icon === "tiktok";
+                      const isPinterest = social.icon === "pinterest";
+                      const Icon = isGoogle ? GoogleIcon : isTikTok ? TikTokIcon : isPinterest ? PinterestIcon : social.icon;
                       return (
                         <a
                           key={index}
@@ -320,6 +346,10 @@ const Footer = () => {
                         >
                           {isGoogle ? (
                             <GoogleIcon />
+                          ) : isTikTok ? (
+                            <TikTokIcon />
+                          ) : isPinterest ? (
+                            <PinterestIcon />
                           ) : (
                             <Icon className="w-5 h-5" strokeWidth={1.5} />
                           )}
@@ -476,16 +506,6 @@ const Footer = () => {
                   <ChevronRight className="w-3 h-3 rotate-0" />
                   Copyright &copy; {new Date().getFullYear()} Travel In Makkah
                   Ltd. | All rights reserved.
-                </p>
-                <p className="text-white/40 text-[12px]">
-                  Designed & Developed by{" "}
-                  <a
-                    href="#"
-                    className="text-white/60 hover:text-white underline decoration-white/30 underline-offset-2 hover:decoration-white/60 transition-colors"
-                  >
-                    American Best IT Limited
-                  </a>
-                  .
                 </p>
               </div>
             </div>

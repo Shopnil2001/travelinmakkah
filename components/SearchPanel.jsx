@@ -45,6 +45,7 @@ const PassengerDropdown = ({
   return (
     <div className="relative" ref={passengersRef}>
       <button
+        type="button"
         onClick={() => setShowPassengers(!showPassengers)}
         className="w-full flex items-center gap-3 px-4 py-4 bg-[#FAF8F5] border-2 border-[#E8E3DA] rounded-xl text-[#2D3339] hover:border-[#1E3A5F] focus:outline-none focus:border-[#1E3A5F] focus:bg-white transition-all duration-200"
       >
@@ -77,6 +78,7 @@ const PassengerDropdown = ({
               </div>
               <div className="flex items-center gap-3">
                 <button
+                  type="button"
                   onClick={() => updatePassengers("adults", -1)}
                   disabled={passengers.adults <= 1}
                   className="w-9 h-9 rounded-full border-2 border-[#E8E3DA] flex items-center justify-center hover:border-[#1E3A5F] hover:bg-[#F8FAFC] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
@@ -87,6 +89,7 @@ const PassengerDropdown = ({
                   {passengers.adults}
                 </span>
                 <button
+                  type="button"
                   onClick={() => updatePassengers("adults", 1)}
                   className="w-9 h-9 rounded-full border-2 border-[#E8E3DA] flex items-center justify-center hover:border-[#1E3A5F] hover:bg-[#F8FAFC] transition-all"
                 >
@@ -103,6 +106,7 @@ const PassengerDropdown = ({
               </div>
               <div className="flex items-center gap-3">
                 <button
+                  type="button"
                   onClick={() => updatePassengers("children", -1)}
                   disabled={passengers.children <= 0}
                   className="w-9 h-9 rounded-full border-2 border-[#E8E3DA] flex items-center justify-center hover:border-[#1E3A5F] hover:bg-[#F8FAFC] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
@@ -113,6 +117,7 @@ const PassengerDropdown = ({
                   {passengers.children}
                 </span>
                 <button
+                  type="button"
                   onClick={() => updatePassengers("children", 1)}
                   className="w-9 h-9 rounded-full border-2 border-[#E8E3DA] flex items-center justify-center hover:border-[#1E3A5F] hover:bg-[#F8FAFC] transition-all"
                 >
@@ -122,6 +127,7 @@ const PassengerDropdown = ({
             </div>
 
             <button
+              type="button"
               onClick={() => setShowPassengers(false)}
               className="w-full mt-3 py-2.5 bg-[#1E3A5F] text-white font-semibold rounded-lg hover:bg-[#2A4A73] transition-colors"
             >

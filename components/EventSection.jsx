@@ -53,12 +53,12 @@ const EventSection = () => {
           <div className="flex">
             {events.map((event) => (
               <div key={event._id} className="flex-[0_0_100%] min-w-0">
-                <div className="relative min-h-[450px] md:min-h-[500px] overflow-hidden rounded-3xl">
+                <div className="relative min-h-[380px] sm:min-h-[420px] md:min-h-[500px] overflow-hidden rounded-3xl">
 
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
                     <Image
-                      src="/EventBG.PNG"
+                      src="/EventBG.webp"
                       alt={event.title}
                       fill
                       className="object-cover"
@@ -74,7 +74,7 @@ const EventSection = () => {
                   <div className="absolute bottom-0 right-0 w-48 h-48 bg-white/5 rounded-full translate-x-1/4 translate-y-1/4" />
 
                   {/* Content */}
-                  <div className="relative z-10 h-full w-full flex flex-col md:flex-row items-center justify-between px-8 md:px-16 lg:px-20 py-14 md:py-16 gap-10">
+                  <div className="relative z-10 h-full w-full flex flex-col md:flex-row items-center justify-between px-5 sm:px-8 md:px-16 lg:px-20 py-10 sm:py-14 md:py-16 gap-6 sm:gap-10">
 
                     {/* Left: Event Info */}
                     <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xl">
@@ -85,7 +85,7 @@ const EventSection = () => {
                         </span>
                       </div>
 
-                      <h3 className="text-3xl md:text-4xl lg:text-5xl font-display text-white leading-tight mb-5 drop-shadow-lg">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display text-white leading-tight mb-4 sm:mb-5 drop-shadow-lg">
                         <span className='text-[#C9A962]'>{event.title}</span>
                       </h3>
 

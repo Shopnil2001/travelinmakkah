@@ -1,0 +1,139 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import api from '@/lib/api';
+import emailjs from '@emailjs/browser';
+
+const EventBookingClient = ({ id }) => {
+  const [event, setEvent] = useState(null);
+  const [isSending, setIsSending] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    mobile: '',
+    email: '',
+    passportNo: '',
+    message: ''
+  });
+
+  useEffect(() => {
+    const fetchEvent = async () => {
+      try {
+        const res = await api.get(`/events/${id}`);
+        setEvent(res.data);
+      } catch (err) {
+        console.error("Error fetching event details:", err);
+      }
+    };
+    fetchEvent();
+  }, [id]);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    const templateParams = {
+      user_name: formData.fullName,
+      user_mobile: formData.mobile,
+      user_email: formData.email,
+      passport_no: formData.passportNo,
+      event_title: event.title,
+      event_date: event.date, // Already formatted as YYYY-MM-DD from your API
+      event_location: event.location,
+      message: formData.message,
+      submission_date: new Date().toLocaleString()
+    };
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAIL_PRIVATE_KEY,
+        process.env.NEXT_PUBLIC_EMAIL_TEMPLET_ID2,
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAIL_PUBLIC_KEY
+      );
+      alert(`Request for ${event.title} sent successfully!`);
+      setFormData({ fullName: '', mobile: '', email: '', passportNo: '', message: '' });
+    } catch (err) {
+      alert('Failed to send request. Please try again.');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  if (!event) return <div className="p-20 text-center font-serif text-[#64B5F6]">Loading Sacred Journey...</div>;
+
+  return (
+    <div className="max-w-full mx-auto py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-20 bg-white">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-start">
+
+        {/* Left Side: Event Information */}
+        <div className="space-y-8">
+          <div>
+            <span className="bg-white text-[#64B5F6] px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">
+              {event.status} Event
+            </span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif text-[#2d4f43] mt-3 sm:mt-4 leading-tight">{event.title}</h1>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 bg-amber-50 p-4 sm:p-6 rounded-2xl border border-amber-100">
+            <div>
+              <p className="text-xs uppercase text-amber-700 font-bold mb-1">Departure Date</p>
+              <p className="text-xl font-semibold text-gray-800">{event.date}</p>
+            </div>
+            <div>
+              <p className="text-xs uppercase text-amber-700 font-bold mb-1">Location</p>
+              <p className="text-xl font-semibold text-gray-800">{event.location}</p>
+            </div>
+          </div>
+
+          <div className="prose prose-emerald">
+            <h3 className="text-2xl font-serif text-[#2d4f43]">Event Details</h3>
+            <p className="text-gray-600 leading-relaxed whitespace-pre-line">{event.description}</p>
+          </div>
+
+
+        </div>
+
+        {/* Right Side: Booking Form */}
+        <div className="bg-[#f6fbf9] p-5 sm:p-6 md:p-8 lg:p-12 rounded-3xl lg:rounded-[40px] border border-emerald-100 lg:sticky lg:top-28">
+          <div className="mb-8 text-center">
+             <h2 className="text-3xl font-serif text-[#2d4f43]">Join the Journey</h2>
+             <p className="text-gray-500 text-sm mt-2">Fill in your details to secure your spot for this event.</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="p-4 bg-white border-l-4 border-[#64B5F6] rounded-xl shadow-sm mb-6">
+               <p className="text-xs text-gray-400 font-bold">EVENT SELECTED</p>
+               <p className="text-lg font-bold text-[#2d4f43]">{event.title}</p>
+            </div>
+
+            <input type="text" name="fullName" placeholder="Full Name*" value={formData.fullName} onChange={handleChange} required
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+
+            <input type="text" name="mobile" placeholder="Mobile Number*" value={formData.mobile} onChange={handleChange} required
+              className="w-full p-4 text-gray-950 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+
+            <input type="email" name="email" placeholder="Email Address*" value={formData.email} onChange={handleChange} required
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+
+            <input type="text" name="passportNo" placeholder="Passport Number" value={formData.passportNo} onChange={handleChange}
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none" />
+
+            <textarea name="message" placeholder="Any special requests or questions?" rows="3" value={formData.message} onChange={handleChange}
+              className="w-full text-gray-950 p-4 rounded-xl border border-gray-200 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+
+            <button type="submit" disabled={isSending}
+              className="w-full bg-[#64B5F6] hover:bg-[#008f45] text-white py-4 rounded-xl font-bold text-xl transition-all shadow-lg">
+              {isSending ? 'Sending Request...' : 'Register Now'}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default EventBookingClient;

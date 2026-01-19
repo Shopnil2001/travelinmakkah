@@ -57,7 +57,7 @@ const HajjServicesSection = () => {
   };
 
   return (
-    <section className="relative min-h-[700px] lg:min-h-[800px] w-full overflow-hidden">
+    <section className="relative min-h-[550px] sm:min-h-[650px] lg:min-h-[800px] w-full overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -132,7 +132,7 @@ const HajjServicesSection = () => {
             className="flex items-center justify-center md:justify-start"
           >
             <Link
-              href="/site/Hajj-Guide"
+              href="/site/Hajj"
               className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-[#1E3A5F] font-semibold rounded-xl hover:bg-[#F5F5F5] transition-all duration-300"
               style={{
                 boxShadow: '0 4px 20px rgba(255, 255, 255, 0.15)'

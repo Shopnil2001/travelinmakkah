@@ -117,9 +117,9 @@ const OffersSection = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="lg:col-span-5"
           >
-            <div className="relative h-[400px] md:h-[550px] w-full overflow-hidden rounded-lg group">
+            <div className="relative h-[280px] sm:h-[350px] md:h-[450px] lg:h-[550px] w-full overflow-hidden rounded-lg group">
               <Image
-                src="/about-kaaba.PNG"
+                src="/about-kaaba.webp"
                 alt="Pilgrim at the Kaaba"
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 fill

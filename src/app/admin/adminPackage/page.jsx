@@ -20,6 +20,7 @@ const AdminPackagePage = () => {
     inclusions: '',
     region: '',
     category: 'Umrah',
+    affiliatedLink: '',
   });
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -84,6 +85,7 @@ const AdminPackagePage = () => {
       inclusions: '',
       region: '',
       category: 'Umrah',
+      affiliatedLink: '',
     });
     setEditingId(null);
   };
@@ -97,8 +99,17 @@ const AdminPackagePage = () => {
       inclusions: Array.isArray(pkg.inclusions) ? pkg.inclusions.join(', ') : '',
       region: pkg.region || '',
       category: pkg.category || 'Umrah',
+      affiliatedLink: pkg.affiliatedLink || '',
     });
     setEditingId(pkg._id);
+
+    // Scroll to form
+    setTimeout(() => {
+      const formElement = document.getElementById('admin-form-card');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   const handleDelete = async (id) => {
@@ -139,7 +150,7 @@ const AdminPackagePage = () => {
             )}
 
             {/* Form Card */}
-            <div className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
+            <div id="admin-form-card" className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
               <div className="admin-card-header">
                 <h2 className="admin-card-title">
                   {editingId ? 'Edit Package' : 'Create New Package'}
@@ -183,10 +194,12 @@ const AdminPackagePage = () => {
                   </div>
 
                   <div>
-                    <label className="admin-label">Duration</label>
+                    <label className="admin-label">Duration (Days)</label>
                     <input
                       className="admin-input"
-                      placeholder="14 Days"
+                      type="number"
+                      min="1"
+                      placeholder="14"
                       value={formData.duration}
                       onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
                       required
@@ -215,6 +228,20 @@ const AdminPackagePage = () => {
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       required
                     />
+                  </div>
+
+                  <div className="admin-form-full">
+                    <label className="admin-label">Affiliated Package Link</label>
+                    <input
+                      className="admin-input"
+                      type="url"
+                      placeholder="https://example.com/package-details"
+                      value={formData.affiliatedLink}
+                      onChange={(e) => setFormData({ ...formData, affiliatedLink: e.target.value })}
+                    />
+                    <p className="text-xs text-[#6B7280] mt-1">
+                      If provided, the &quot;View Details&quot; button will redirect users to this external link
+                    </p>
                   </div>
 
                   <div className="admin-form-full admin-form-actions">
@@ -271,7 +298,7 @@ const AdminPackagePage = () => {
                           <span className={`admin-badge ${pkg.category === 'Hajj' ? 'admin-badge-gold' : 'admin-badge-primary'}`}>
                             {pkg.category}
                           </span>
-                          <span className="text-sm text-[#6B7280]">{pkg.duration}</span>
+                          <span className="text-sm text-[#6B7280]">{pkg.duration} {Number(pkg.duration) === 1 ? 'Day' : 'Days'}</span>
                         </div>
 
                         <h4 className="admin-item-title line-clamp-2">{pkg.title}</h4>

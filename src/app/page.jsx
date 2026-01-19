@@ -338,7 +338,7 @@ export default function Home() {
       <div className="relative overflow-hidden">
         <div
           className="absolute inset-0 bg-repeat bg-center opacity-100"
-          style={{ backgroundImage: "url('/hajj new-bg.png')" }}
+          style={{ backgroundImage: "url('/hajj new-bg.webp')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-white/0 via-transparent to-white/60" />
 
@@ -378,6 +378,7 @@ export default function Home() {
                     duration={pkg.duration}
                     inclusions={pkg.inclusions}
                     ctaLabel="View Details"
+                    affiliatedLink={pkg.affiliatedLink}
                     onClick={() => handlePackageClick('Hajj', pkg._id)}
                   />
                 </motion.div>
@@ -428,6 +429,7 @@ export default function Home() {
                     duration={pkg.duration}
                     inclusions={pkg.inclusions}
                     ctaLabel="View Details"
+                    affiliatedLink={pkg.affiliatedLink}
                     onClick={() => handlePackageClick('Umrah', pkg._id)}
                   />
                 </motion.div>

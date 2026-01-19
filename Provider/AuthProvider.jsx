@@ -21,14 +21,12 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Create new user
-  const createUser = (email, password) => {
-    setLoading(true);
+  const createUser = async (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   // Sign in user
-  const signIn = (email, password) => {
-    setLoading(true);
+  const signIn = async (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -39,13 +37,11 @@ const AuthProvider = ({ children }) => {
 
   // Send email verification
   const verifyEmail = () => {
-    setLoading(true);
     return sendEmailVerification(auth.currentUser);
   };
 
   // Password reset
   const passwordReset = (email) => {
-    setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
 

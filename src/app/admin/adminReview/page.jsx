@@ -82,6 +82,14 @@ const AdminReviewPage = () => {
       photoUrl: review.photoUrl || '',
     });
     setEditingId(review._id);
+
+    // Scroll to form
+    setTimeout(() => {
+      const formElement = document.getElementById('admin-form-card');
+      if (formElement) {
+        formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   const handleDelete = async (id) => {
@@ -123,7 +131,7 @@ const AdminReviewPage = () => {
             )}
 
             {/* Form Card */}
-            <div className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
+            <div id="admin-form-card" className="admin-card mb-8 admin-animate-in admin-animate-delay-1">
               <div className="admin-card-header">
                 <h2 className="admin-card-title">
                   {editingId ? 'Edit Review' : 'Create Review'}

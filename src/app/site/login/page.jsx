@@ -53,9 +53,10 @@ const AuthPage = () => {
         }, 1500);
       }
     } catch (err) {
-      let message = 'Something went wrong';
+      let message = 'Something went wrong. Please try again.';
       if (err.code) {
         switch (err.code) {
+          case 'auth/invalid-credential':
           case 'auth/user-not-found':
           case 'auth/wrong-password':
             message = 'Invalid email or password';
@@ -63,8 +64,12 @@ const AuthPage = () => {
           case 'auth/email-already-in-use':
             message = 'Email already registered. Please log in.';
             break;
-          default:
-            message = err.message || 'Please try again';
+          case 'auth/too-many-requests':
+            message = 'Too many failed attempts. Please try again later.';
+            break;
+          case 'auth/network-request-failed':
+            message = 'Network error. Please check your connection.';
+            break;
         }
       }
       setError(message);

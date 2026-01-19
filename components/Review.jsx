@@ -98,7 +98,7 @@ const ReviewSection = () => {
       ref={sectionRef}
       id="reviews"
       className="relative py-24 lg:py-32 overflow-hidden "
-      style={{ backgroundImage: "url('/test2.png')" }}
+      style={{ backgroundImage: "url('/test2.webp')" }}
     >
       {/* ══════════════════════════════════════════════════════════════════════
           PROMINENT BACKGROUND IMAGE - Clearly visible
@@ -138,12 +138,12 @@ const ReviewSection = () => {
 
       {/* Floating decorative elements */}
       <motion.div
-        className="absolute top-20 left-10 w-24 h-24 rounded-full border border-[#C9A962]/30"
+        className="hidden sm:block absolute top-20 left-10 w-24 h-24 rounded-full border border-[#C9A962]/30"
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       />
       <motion.div
-        className="absolute bottom-20 right-10 w-32 h-32 rounded-full border border-[#C9A962]/20"
+        className="hidden sm:block absolute bottom-20 right-10 w-32 h-32 rounded-full border border-[#C9A962]/20"
         animate={{ rotate: -360 }}
         transition={{ duration: 80, repeat: Infinity, ease: "linear" }}
       />
@@ -182,7 +182,7 @@ const ReviewSection = () => {
             Testimonials
           </motion.p>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display text-[#1E3A5F] mb-6 leading-[1.1] drop-shadow-sm">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display text-[#1E3A5F] mb-4 sm:mb-6 leading-[1.1] drop-shadow-sm">
             Voices of Our{" "}
             <span className="relative inline-block">
               <span className="relative z-10 text-[#C9A962]">Pilgrims</span>
@@ -219,7 +219,7 @@ const ReviewSection = () => {
                 />
               ))}
               <span className="text-sm font-medium text-[#2D3339] ml-2">
-                4.9 Average Rating
+                5-Star Service
               </span>
             </div>
           </div>
@@ -310,7 +310,7 @@ const ReviewSection = () => {
                         <div className="absolute -inset-1 bg-gradient-to-r from-[#C9A962] to-[#1E3A5F] rounded-full opacity-50 blur-sm group-hover:opacity-80 transition-opacity" />
                         <div className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-white">
                           <Image
-                            src={review.photoUrl || "/default-avatar.png"}
+                            src={review.photoUrl || "/default-avatar.webp"}
                             alt={review.name}
                             fill
                             className="object-cover"

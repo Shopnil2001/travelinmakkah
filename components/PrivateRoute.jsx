@@ -15,7 +15,7 @@ export default function PrivateRoute({ children, adminOnly = false }) {
     if (loading) return;
 
     if (!user) {
-      router.replace(`/login?redirect=${encodeURIComponent(pathname)}`);
+      router.replace('/');
       return;
     }
 

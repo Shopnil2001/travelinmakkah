@@ -10,12 +10,20 @@ const PackageCard = ({
   inclusions = [],
   ctaLabel = 'View Details',
   onClick,
+  affiliatedLink,
 }) => {
+  const handleClick = () => {
+    if (affiliatedLink && affiliatedLink.trim()) {
+      window.open(affiliatedLink.trim(), '_blank', 'noopener,noreferrer');
+    } else if (onClick) {
+      onClick();
+    }
+  };
   return (
     <motion.div
       whileHover={{ y: -4 }}
       style={{
-        backgroundImage: "url('/test2.png')",
+        backgroundImage: "url('/test2.webp')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -28,7 +36,7 @@ const PackageCard = ({
           {title}
         </h3>
         {duration && (
-          <p className="text-sm text-[#6B7280]">{duration}</p>
+          <p className="text-sm text-[#6B7280]">{duration} {Number(duration) === 1 ? 'Day' : 'Days'}</p>
         )}
       </div>
 
@@ -66,7 +74,7 @@ const PackageCard = ({
       <div className="relative z-10 px-6 pb-8">
         <motion.button
           whileTap={{ scale: 0.98 }}
-          onClick={onClick}
+          onClick={handleClick}
           className="group w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-white transition-all duration-300"
           style={{
             background: 'linear-gradient(135deg, #1E3A5F 0%, #2A4A73 100%)',

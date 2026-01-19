@@ -2,10 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   Plane,
-  Building2,
   Shield,
   Clock,
   Headphones,
@@ -45,21 +45,29 @@ const BookingPage = () => {
       name: "Makkah",
       country: "Saudi Arabia",
       description: "The holiest city in Islam",
-      image: "/makkah.jpg",
+      image: "/hajj.webp",
     },
     {
       name: "Madinah",
       country: "Saudi Arabia",
       description: "The City of the Prophet",
-      image: "/madina.jpg",
+      image: "/umrah-mosque.webp",
     },
     {
       name: "Jeddah",
       country: "Saudi Arabia",
       description: "Gateway to the Holy Cities",
-      image: "/hajj new-bg.png",
+      image: "/Jeddah.webp",
     },
   ];
+
+  // Scroll to search panel
+  const scrollToSearch = () => {
+    const searchSection = document.getElementById('search-panel');
+    if (searchSection) {
+      searchSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -79,7 +87,7 @@ const BookingPage = () => {
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Hero Section with Search Panel */}
-      <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[85vh] md:min-h-[80vh] lg:min-h-[75vh] flex items-start justify-center overflow-visible">
         {/* Background Video/Image */}
         <div className="absolute inset-0">
           <video
@@ -97,7 +105,7 @@ const BookingPage = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 lg:pt-36 pb-40 sm:pb-44 lg:pb-48">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,12 +124,13 @@ const BookingPage = () => {
             </h1>
             <p className="text-white/80 text-lg max-w-2xl mx-auto">
               Find the perfect flights and hotels for your pilgrimage to the
-              Holy Cities. Trusted by thousands of pilgrims worldwide.
+              Holy Cities. Your trusted partner for sacred journeys.
             </p>
           </motion.div>
 
           {/* Search Panel */}
           <motion.div
+            id="search-panel"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
@@ -131,7 +140,7 @@ const BookingPage = () => {
         </div>
 
         {/* Bottom Gradient Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF8F5] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 sm:h-28 lg:h-32 bg-gradient-to-t from-[#FAF8F5] to-transparent pointer-events-none" />
       </section>
 
       {/* Features Section */}
@@ -215,10 +224,15 @@ const BookingPage = () => {
                 className="group relative h-[420px] rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500"
               >
                 {/* Background Image */}
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${destination.image})` }}
-                />
+                <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-110">
+                  <Image
+                    src={destination.image}
+                    alt={destination.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
+                </div>
                 {/* Gradient Overlay */}
                 {/* Dark bottom for text */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1F33] via-[#0F1F33]/60 to-transparent" />
@@ -234,13 +248,16 @@ const BookingPage = () => {
                       {destination.country}
                     </span>
                   </div>
-                  <h3 className="text-3xl font-display text-white leading-tight">
+                  <h3 className="text-3xl font-display text-white leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]" style={{ color: 'white' }}>
                     {destination.name}
                   </h3>
                   <p className="text-white/75 text-sm max-w-[90%]">
                     {destination.description}
                   </p>
-                  <button className="inline-flex items-center gap-2 px-4 py-2 bg-[#C9A962]/10 text-[#C9A962] font-semibold text-sm rounded-full backdrop-blur-sm border border-[#C9A962]/30 hover:bg-[#C9A962] hover:text-[#1E3A5F] transition-all duration-300">
+                  <button
+                    onClick={scrollToSearch}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#C9A962]/10 text-[#C9A962] font-semibold text-sm rounded-full backdrop-blur-sm border border-[#C9A962]/30 hover:bg-[#C9A962] hover:text-[#1E3A5F] transition-all duration-300"
+                  >
                     Explore Flights
                     <svg
                       className="w-4 h-4"
@@ -252,7 +269,7 @@ const BookingPage = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        d="M5 10l7-7m0 0l7 7m-7-7v18"
                       />
                     </svg>
                   </button>
@@ -336,10 +353,10 @@ const BookingPage = () => {
               className="grid grid-cols-2 gap-6"
             >
               {[
-                { value: "15+", label: "Years Experience" },
-                { value: "10K+", label: "Happy Pilgrims" },
-                { value: "50+", label: "Partner Airlines" },
-                { value: "100+", label: "Hotels Network" },
+                { value: "24/7", label: "Customer Support" },
+                { value: "100%", label: "Visa Assistance" },
+                { value: "2", label: "Holy Cities" },
+                { value: "5★", label: "Hotel Options" },
               ].map((stat, index) => (
                 <div
                   key={index}

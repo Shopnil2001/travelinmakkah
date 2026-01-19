@@ -8,7 +8,6 @@ import {
   Phone,
   MapPin,
   Send,
-  Clock,
   Loader2,
   BookOpen,
 } from 'lucide-react';
@@ -82,22 +81,17 @@ const ContactUsPage = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      lines: ['Wisconsin Ave, Suite 700', 'Chevy Chase, Maryland 20815'],
+      lines: ['C4M2+XJ5, Al Adamah', 'Dammam 32242, Saudi Arabia'],
     },
     {
       icon: Mail,
       title: 'Email Us',
-      lines: ['support@travelinmakkah.com'],
+      lines: ['info@travelinmakkah.com'],
     },
     {
       icon: Phone,
       title: 'Call Us',
-      lines: ['+1 800 854-36-80'],
-    },
-    {
-      icon: Clock,
-      title: 'Working Hours',
-      lines: ['Mon - Fri: 9:00 AM - 6:00 PM', 'Sat: 10:00 AM - 4:00 PM'],
+      lines: ['+966 509 779 723'],
     },
   ];
 
@@ -121,14 +115,14 @@ const ContactUsPage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-16 px-6 md:px-12 lg:px-20">
-        <div className="absolute top-12 left-12 w-24 h-24 opacity-10">
+      <section className="relative pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 px-4 sm:px-6 md:px-12 lg:px-20">
+        <div className="hidden sm:block absolute top-12 left-12 w-24 h-24 opacity-10">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="48" stroke="#C9A962" strokeWidth="1"/>
             <circle cx="50" cy="50" r="32" stroke="#C9A962" strokeWidth="0.5"/>
           </svg>
         </div>
-        <div className="absolute top-20 right-16 w-20 h-20 opacity-10">
+        <div className="hidden sm:block absolute top-20 right-16 w-20 h-20 opacity-10">
           <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M40 0L80 40L40 80L0 40Z" stroke="#C9A962" strokeWidth="1"/>
           </svg>
@@ -149,7 +143,7 @@ const ContactUsPage = () => {
                 <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C9A962]"></div>
               </div>
 
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#2D3339] mb-6 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif text-[#2D3339] mb-4 sm:mb-6 tracking-tight">
                 Contact
                 <span className="block mt-2">
                   <span className="relative inline-block">
@@ -179,7 +173,7 @@ const ContactUsPage = () => {
       {/* Main Content */}
       <section className="relative pb-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16">
             {/* Contact Form */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -192,7 +186,7 @@ const ContactUsPage = () => {
                 <div className="absolute -inset-3 border-2 border-[#C9A962]/10 rounded-[2rem] transform -rotate-1"></div>
                 <div className="absolute -inset-3 bg-gradient-to-br from-[#C9A962]/5 via-transparent to-[#1E3A5F]/5 rounded-[2rem] transform rotate-1"></div>
 
-                <div id="contact-form" className="relative bg-white p-8 lg:p-12 rounded-3xl border border-[#E8E3DA] shadow-[0_20px_60px_-20px_rgba(201,169,98,0.12)]">
+                <div id="contact-form" className="relative bg-white p-5 sm:p-6 md:p-8 lg:p-12 rounded-3xl border border-[#E8E3DA] shadow-[0_20px_60px_-20px_rgba(201,169,98,0.12)]">
                   {/* PDF Request Notice */}
                   {pdfRequest && (
                     <motion.div
@@ -308,7 +302,7 @@ const ContactUsPage = () => {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="lg:col-span-5 order-1 lg:order-2"
             >
-              <div className="lg:sticky lg:top-32 space-y-8">
+              <div className="lg:sticky lg:top-28 space-y-6 sm:space-y-8">
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-[2px] bg-gradient-to-r from-[#C9A962] to-transparent"></div>
@@ -348,22 +342,39 @@ const ContactUsPage = () => {
                   ))}
                 </div>
 
-                <div className="p-6 bg-gradient-to-br from-[#1E3A5F] to-[#152a45] rounded-2xl text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#C9A962]/20 flex items-center justify-center">
-                    <svg className="w-8 h-8 text-[#C9A962]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                <div className="p-6 bg-gradient-to-br from-[#1E3A5F] to-[#152a45] rounded-2xl">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-[#C9A962]/20 flex items-center justify-center">
+                    <svg className="w-7 h-7 text-[#C9A962]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                     </svg>
                   </div>
-                  <h4 className="text-white font-serif text-lg mb-2">Trusted by Thousands</h4>
-                  <p className="text-white/70 text-sm">Over 10,000 pilgrims have trusted us with their sacred journey</p>
-                  <div className="flex justify-center gap-1 mt-4">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} className="w-5 h-5 text-[#C9A962]" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                  <h4 className="text-white font-serif text-lg mb-3 text-center">Our Commitment</h4>
+                  <ul className="space-y-2.5">
+                    <li className="flex items-center gap-2 text-white/80 text-sm">
+                      <svg className="w-4 h-4 text-[#C9A962] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
-                    ))}
-                  </div>
-                  <p className="text-[#C9A962] text-sm mt-2 font-medium">4.9 out of 5 Rating</p>
+                      Complete visa assistance
+                    </li>
+                    <li className="flex items-center gap-2 text-white/80 text-sm">
+                      <svg className="w-4 h-4 text-[#C9A962] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      24/7 customer support
+                    </li>
+                    <li className="flex items-center gap-2 text-white/80 text-sm">
+                      <svg className="w-4 h-4 text-[#C9A962] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      Guided pilgrimage experience
+                    </li>
+                    <li className="flex items-center gap-2 text-white/80 text-sm">
+                      <svg className="w-4 h-4 text-[#C9A962] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      Premium accommodations
+                    </li>
+                  </ul>
                 </div>
               </div>
             </motion.div>
@@ -406,14 +417,14 @@ const ContactUsPage = () => {
                   <MapPin className="w-6 h-6 text-[#C9A962]" />
                 </div>
                 <div className="text-left">
-                  <p className="font-medium">Wisconsin Ave, Suite 700</p>
-                  <p className="text-white/60 text-sm">Chevy Chase, Maryland 20815</p>
+                  <p className="font-medium">C4M2+XJ5, Al Adamah</p>
+                  <p className="text-white/60 text-sm">Dammam 32242, Saudi Arabia</p>
                 </div>
               </div>
 
               <div className="hidden sm:block w-px h-12 bg-white/20"></div>
 
-              <a href="tel:+18008543680" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A962] to-[#B8954F] text-white font-medium rounded-xl hover:shadow-[0_10px_40px_-10px_rgba(201,169,98,0.5)] transition-all duration-300">
+              <a href="tel:+966509779723" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A962] to-[#B8954F] text-white font-medium rounded-xl hover:shadow-[0_10px_40px_-10px_rgba(201,169,98,0.5)] transition-all duration-300">
                 <Phone className="w-5 h-5" />
                 Call Us Now
               </a>

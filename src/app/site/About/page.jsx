@@ -2,15 +2,16 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Target, Eye, Users, Award, Heart, Shield } from 'lucide-react';
 
 const AboutPage = () => {
   const stats = [
-    { value: '15', suffix: '+', label: 'Years of Excellence' },
-    { value: '10K', suffix: '+', label: 'Happy Pilgrims' },
-    { value: '50', suffix: '+', label: 'Expert Guides' },
-    { value: '4.9', suffix: '★', label: 'Customer Rating' },
+    { value: '24', suffix: '/7', label: 'Customer Support' },
+    { value: '100', suffix: '%', label: 'Visa Assistance' },
+    { value: '2', suffix: '', label: 'Holy Cities' },
+    { value: '5★', suffix: '', label: 'Hotel Options' },
   ];
 
   const values = [
@@ -50,16 +51,16 @@ const AboutPage = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-20 pb-24 px-6 md:px-12 lg:px-20">
+      <section className="relative pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 lg:px-20">
         {/* Decorative Elements */}
-        <div className="absolute top-10 left-10 w-32 h-32 opacity-10">
+        <div className="hidden sm:block absolute top-10 left-10 w-32 h-32 opacity-10">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="48" stroke="#C9A962" strokeWidth="1"/>
             <circle cx="50" cy="50" r="35" stroke="#C9A962" strokeWidth="0.5"/>
             <circle cx="50" cy="50" r="22" stroke="#C9A962" strokeWidth="0.5"/>
           </svg>
         </div>
-        <div className="absolute top-20 right-20 w-24 h-24 opacity-10">
+        <div className="hidden sm:block absolute top-20 right-20 w-24 h-24 opacity-10">
           <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 0L100 50L50 100L0 50Z" stroke="#1E3A5F" strokeWidth="1"/>
             <path d="M50 20L80 50L50 80L20 50Z" stroke="#1E3A5F" strokeWidth="0.5"/>
@@ -77,13 +78,13 @@ const AboutPage = () => {
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C9A962]"></div>
                 <span className="text-[#C9A962] font-medium text-sm tracking-[0.3em] uppercase">
-                  Est. 2009
+                  Our Story
                 </span>
                 <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C9A962]"></div>
               </div>
 
               {/* Main Title */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-[#2D3339] mb-6 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-serif text-[#2D3339] mb-4 sm:mb-6 tracking-tight">
                 About
                 <span className="block mt-2 relative">
                   <span className="relative z-10 bg-gradient-to-r from-[#C9A962] to-[#D4BC82] bg-clip-text text-transparent">
@@ -134,9 +135,9 @@ const AboutPage = () => {
               <div className="absolute -inset-4 border-2 border-[#C9A962]/20 rounded-[2rem] transform rotate-2"></div>
               <div className="absolute -inset-4 bg-gradient-to-br from-[#C9A962]/10 via-transparent to-[#1E3A5F]/5 rounded-[2rem] transform -rotate-1"></div>
 
-              <div className="relative h-[450px] md:h-[550px] w-full rounded-3xl overflow-hidden shadow-[0_30px_60px_-20px_rgba(30,58,95,0.25)]">
+              <div className="relative h-[300px] sm:h-[380px] md:h-[450px] lg:h-[550px] w-full rounded-3xl overflow-hidden shadow-[0_30px_60px_-20px_rgba(30,58,95,0.25)]">
                 <Image
-                  src="/about-kaaba.PNG"
+                  src="/about-kaaba.webp"
                   alt="Pilgrim at the Kaaba"
                   fill
                   className="object-cover"
@@ -148,11 +149,11 @@ const AboutPage = () => {
                 <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#C9A962] to-[#D4BC82] flex items-center justify-center">
-                      <span className="text-white font-serif text-lg font-bold">15+</span>
+                      <span className="text-white font-serif text-lg font-bold">24/7</span>
                     </div>
                     <div>
-                      <div className="text-xs text-[#6B7280] uppercase tracking-wider">Years of</div>
-                      <div className="font-serif text-[#2D3339] font-medium">Excellence</div>
+                      <div className="text-xs text-[#6B7280] uppercase tracking-wider">Dedicated</div>
+                      <div className="font-serif text-[#2D3339] font-medium">Support</div>
                     </div>
                   </div>
                 </div>
@@ -193,7 +194,7 @@ const AboutPage = () => {
               {/* Signature line */}
               <div className="flex items-center gap-4 pt-4">
                 <div className="w-20 h-[2px] bg-gradient-to-r from-[#C9A962] to-[#D4BC82]"></div>
-                <span className="text-[#C9A962] font-serif italic text-lg">Since 2009</span>
+                <span className="text-[#C9A962] font-serif italic text-lg">Your Trusted Partner</span>
               </div>
             </motion.div>
           </div>
@@ -230,7 +231,7 @@ const AboutPage = () => {
             <h2 className="text-3xl md:text-4xl font-serif text-white mt-4"><span className='text-white'>Numbers That Speak</span></h2>
           </motion.div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-4">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -240,13 +241,13 @@ const AboutPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="relative group"
               >
-                <div className="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-[#C9A962]/30 transition-all duration-500">
+                <div className="text-center p-5 sm:p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-[#C9A962]/30 transition-all duration-500">
                   {/* Large number */}
                   <div className="flex items-baseline justify-center gap-1 mb-3">
-                    <span className="text-5xl md:text-6xl lg:text-7xl font-serif font-light text-[#C9A962]">
+                    <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-[#C9A962]">
                       {stat.value}
                     </span>
-                    <span className="text-2xl md:text-3xl text-[#C9A962]/70 font-light">
+                    <span className="text-xl sm:text-2xl md:text-3xl text-[#C9A962]/70 font-light">
                       {stat.suffix}
                     </span>
                   </div>
@@ -458,15 +459,15 @@ const AboutPage = () => {
               Let us guide you through an unforgettable pilgrimage experience with care, expertise, and devotion.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/site/Packages" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A962] to-[#D4BC82] text-white font-medium rounded-xl hover:shadow-[0_10px_40px_-10px_rgba(201,169,98,0.5)] transition-all duration-300 group">
+              <Link href="/site/Hajj" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#C9A962] to-[#D4BC82] text-white font-medium rounded-xl hover:shadow-[0_10px_40px_-10px_rgba(201,169,98,0.5)] transition-all duration-300 group">
                 Explore Packages
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
-              <a href="/site/Contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 text-white font-medium rounded-xl hover:bg-white/10 hover:border-white/50 transition-all duration-300">
+              </Link>
+              <Link href="/site/Contact" className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/30 text-white font-medium rounded-xl hover:bg-white/10 hover:border-white/50 transition-all duration-300">
                 Contact Us
-              </a>
+              </Link>
             </div>
           </motion.div>
         </div>
