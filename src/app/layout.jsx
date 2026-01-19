@@ -26,24 +26,24 @@ export const metadata = {
   },
   description: "Your trusted companion for sacred journeys. Experience spiritually fulfilling Hajj and Umrah pilgrimages with complete guidance and care.",
   keywords: "Hajj, Umrah, pilgrimage, Makkah, Madinah, Islamic travel, Bangladesh",
- 
+
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jakarta.variable}`}>
-      
+
       <body className="antialiased bg-[#FAF8F5]">
-     <head>
-        {/* Standard HTML Script with hydration bypass */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=pub-8182060166306956"
-          crossOrigin="anonymous"
-          // This prevents Next.js from adding data-nscript
-          dangerouslySetInnerHTML={{ __html: '' }}
-        />
-      </head>
+        <head>
+          {/* Standard HTML Script with hydration bypass */}
+          <meta name="referrer" content="no-referrer-when-downgrade" />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8182060166306956"
+            crossOrigin="anonymous"
+            data-ad-client="ca-pub-8182060166306956" // Some versions of AdSense require this duplicate attribute
+          ></script>
+        </head>
         <Providers>
           <Navbar />
           <main>{children}</main>
