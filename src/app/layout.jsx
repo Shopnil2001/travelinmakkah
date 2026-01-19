@@ -26,9 +26,7 @@ export const metadata = {
   },
   description: "Your trusted companion for sacred journeys. Experience spiritually fulfilling Hajj and Umrah pilgrimages with complete guidance and care.",
   keywords: "Hajj, Umrah, pilgrimage, Makkah, Madinah, Islamic travel, Bangladesh",
-  icons: {
-    icon: "/3Dlogo.webp",
-  },
+ 
 };
 
 export default function RootLayout({ children }) {
