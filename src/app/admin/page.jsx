@@ -17,13 +17,7 @@ const quickActions = [
     icon: Package,
     color: 'from-[#1E3A5F] to-[#2A4A73]',
   },
-  {
-    href: '/admin/adminVisa',
-    label: 'Visas',
-    description: 'Visa processing & requirements',
-    icon: Globe,
-    color: 'from-[#1E3A5F] to-[#2A4A73]',
-  },
+ 
   {
     href: '/admin/adminBlog',
     label: 'Blogs',

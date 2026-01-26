@@ -55,7 +55,7 @@ function isValidBlogSlug(slug) {
 export async function generateStaticParams() {
   try {
     const res = await fetch(`${API_BASE_URL}/blogs`, {
-      next: { revalidate: 3600 }
+      next: { revalidate: 30 }
     });
 
     if (!res.ok) {
@@ -117,7 +117,7 @@ async function getBlog(slug) {
   try {
     const res = await fetch(`${API_BASE_URL}/blogs/slug/${encodeURIComponent(slug)}`, {
       cache: 'force-cache',
-      next: { revalidate: 3600 }
+      next: { revalidate: 30 }
     });
 
     if (!res.ok) {

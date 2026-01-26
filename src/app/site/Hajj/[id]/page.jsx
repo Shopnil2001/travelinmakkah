@@ -16,6 +16,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function HajjDetailsPage({ params }) {
-  return <HajjDetailsClient id={params.id} />;
+export default async function HajjDetailsPage({ params }) {
+  const { id } = await params;
+  return <HajjDetailsClient id={id} />;
 }

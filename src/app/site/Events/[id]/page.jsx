@@ -16,6 +16,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function EventBookingPage({ params }) {
-  return <EventBookingClient id={params.id} />;
+export default async function EventBookingPage({ params }) {
+  const { id } = await params;
+  return <EventBookingClient id={id} />;
 }

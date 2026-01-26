@@ -16,6 +16,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function UmrahDetailsPage({ params }) {
-  return <UmrahDetailsClient id={params.id} />;
+export default async function UmrahDetailsPage({ params }) {
+  const { id } = await params;
+  return <UmrahDetailsClient id={id} />;
 }
