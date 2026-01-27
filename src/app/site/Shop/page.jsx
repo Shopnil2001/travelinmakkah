@@ -180,36 +180,37 @@ const ProductPage = () => {
               Quality essentials to accompany your pilgrimage.
              </p>
 
-            {/* Category Tabs */}
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-              {categories.map((category) => (
-                <motion.button
-                  key={category.id}
-                  onClick={() => handleCategoryChange(category.id)}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`relative flex items-center gap-2 px-4 sm:px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                    activeCategory === category.id
-                      ? 'bg-[#1E3A5F] text-white shadow-lg shadow-[#1E3A5F]/20'
-                      : 'bg-white text-[#4A5158] border border-[#E8E3DA] hover:border-[#1E3A5F]/30 hover:bg-white/80'
-                  }`}
-                >
-                  <CategoryIcon iconId={category.icon} className="w-4 h-4" />
-                  <span className="hidden sm:inline">{category.label}</span>
-                  <span className="sm:hidden">{category.label.slice(0, 3)}</span>
-
-                  {/* Count Badge */}
-                  <span
-                    className={`text-xs px-1.5 py-0.5 rounded-md transition-colors duration-300 ${
+            {/* Category Tabs — horizontal scroll on mobile, wrap on desktop */}
+            <div className="overflow-x-auto scrollbar-hide -mx-6 px-6 sm:mx-0 sm:px-0">
+              <div className="flex sm:flex-wrap sm:justify-center gap-2 sm:gap-3 w-max sm:w-auto mx-auto">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    onClick={() => handleCategoryChange(category.id)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`relative flex items-center gap-1.5 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex-shrink-0 ${
                       activeCategory === category.id
-                        ? 'bg-white/20 text-white'
-                        : 'bg-[#E8E3DA] text-[#6B7280]'
+                        ? 'bg-[#1E3A5F] text-white shadow-lg shadow-[#1E3A5F]/20'
+                        : 'bg-white text-[#4A5158] border border-[#E8E3DA] hover:border-[#1E3A5F]/30 hover:bg-white/80'
                     }`}
                   >
-                    {getCategoryCount(category)}
-                  </span>
-                </motion.button>
-              ))}
+                    <CategoryIcon iconId={category.icon} className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <span>{category.label}</span>
+
+                    {/* Count Badge */}
+                    <span
+                      className={`text-[10px] sm:text-xs px-1.5 py-0.5 rounded-md transition-colors duration-300 ${
+                        activeCategory === category.id
+                          ? 'bg-white/20 text-white'
+                          : 'bg-[#E8E3DA] text-[#6B7280]'
+                      }`}
+                    >
+                      {getCategoryCount(category)}
+                    </span>
+                  </motion.button>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -260,61 +261,70 @@ const ProductPage = () => {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8"
+              className="flex flex-col gap-4"
             >
               {currentProducts.map((product, index) => (
                 <motion.div
                   key={product._id}
                   variants={itemVariants}
-                  className="group bg-white rounded-2xl overflow-hidden border border-[#E8E3DA]/50 shadow-sm hover:shadow-xl hover:shadow-[#1E3A5F]/5 transition-all duration-500"
+                  className="group bg-white rounded-2xl overflow-hidden border border-[#E8E3DA]/50 shadow-sm hover:shadow-md hover:border-[#E8E3DA] transition-all duration-300"
                 >
-                  {/* Image Container */}
-                  <div className="relative h-52 sm:h-60 w-full overflow-hidden bg-gradient-to-br from-[#F5F3F0] to-[#EBE7E0]">
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
+                  <div className="flex flex-col sm:flex-row">
+                    {/* Thumbnail */}
+                    <div className="relative w-full sm:w-36 md:w-44 lg:w-52 h-48 sm:h-auto sm:min-h-[8rem] flex-shrink-0 overflow-hidden bg-gradient-to-br from-[#F5F3F0] to-[#EBE7E0]">
+                      <Image
+                        src={product.imageUrl}
+                        alt={product.name}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      />
+                    </div>
 
-                    {/* Subtle gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
-                  </div>
+                    {/* Content */}
+                    <div className="flex flex-col sm:flex-row flex-1 min-w-0">
+                      {/* Middle: name + description */}
+                      <div className="flex-1 min-w-0 px-4 py-4 sm:px-5 sm:py-5 flex flex-col justify-center">
+                        {/* Category */}
+                        {product.category && (
+                          <span className="inline-flex self-start px-2 py-0.5 text-[10px] font-semibold text-[#C9A962] bg-[#C9A962]/8 rounded-full uppercase tracking-widest mb-1.5">
+                            {product.category}
+                          </span>
+                        )}
 
-                  {/* Content */}
-                  <div className="p-5 sm:p-6 flex flex-col">
-                    {/* Category Badge */}
-                    {product.category && (
-                      <span className="inline-flex self-start px-3 py-1 text-[10px] font-semibold text-[#1E3A5F] bg-[#1E3A5F]/5 rounded-full uppercase tracking-widest mb-3">
-                        {product.category}
-                      </span>
-                    )}
+                        {/* Product Name — prominent, dark, bold */}
+                        <h3 className="text-[#1E3A5F] text-lg sm:text-xl font-extrabold leading-snug group-hover:text-[#2A4A73] transition-colors duration-300">
+                          {product.name}
+                        </h3>
 
-                    {/* Title */}
-                    <h3 className="text-[#2D3339] text-lg font-semibold leading-snug line-clamp-2 mb-4 group-hover:text-[#1E3A5F] transition-colors duration-300">
-                      {product.name}
-                    </h3>
-
-                    {/* Price & Details Button */}
-                    <div className="flex items-center justify-between mt-auto pt-4 border-t border-[#E8E3DA]/60">
-                      {/* Price */}
-                      <div className="flex items-baseline">
-                        <span className="text-sm text-[#6B7280] font-medium mr-1">BDT</span>
-                        <span className="text-2xl font-bold text-[#1E3A5F] tracking-tight">
-                          {Number(product.price).toLocaleString()}
-                        </span>
+                        {/* Description — lighter, clearly subordinate */}
+                        {product.description && (
+                          <p className="text-[#9CA3AF] text-sm sm:text-[15px] leading-relaxed mt-1.5 line-clamp-2 sm:line-clamp-3">
+                            {product.description}
+                          </p>
+                        )}
                       </div>
 
-                      {/* Details Button */}
-                      <a
-                        href={getAffiliateUrl(product.affiliateUrl)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/btn inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-[#1E3A5F] bg-[#C9A962]/10 hover:bg-[#C9A962] hover:text-white rounded-full transition-all duration-300"
-                      >
-                        <span>Details</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </a>
+                      {/* Right: price + button */}
+                      <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 px-4 pb-4 sm:px-5 sm:py-5 sm:pl-0 flex-shrink-0 sm:min-w-[9rem]">
+                        {/* Price */}
+                        <div className="flex items-baseline">
+                          <span className="text-xl sm:text-2xl font-bold text-[#1E3A5F] tracking-tight">
+                            {Number(product.price).toLocaleString()}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-[#C9A962] ml-0.5">$</span>
+                        </div>
+
+                        {/* Details Button */}
+                        <a
+                          href={getAffiliateUrl(product.affiliateUrl)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/btn inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-medium text-white bg-[#1E3A5F] hover:bg-[#2A4A73] rounded-lg transition-all duration-300 whitespace-nowrap"
+                        >
+                          <span>View Details</span>
+                          <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
