@@ -1,7 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
+import { useRef, useCallback } from 'react';
 import 'react-quill-new/dist/quill.snow.css';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), {
@@ -14,26 +14,92 @@ const ReactQuill = dynamic(() => import('react-quill-new'), {
 });
 
 const RichTextEditor = ({ value, onChange, placeholder = 'Write your content here...' }) => {
-  const modules = useMemo(
-    () => ({
-      toolbar: {
-        container: [
-          [{ header: [1, 2, 3, 4, 5, 6, false] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          [{ indent: '-1' }, { indent: '+1' }],
-          [{ align: [] }],
-          ['blockquote', 'code-block'],
-          ['link'],
-          ['clean'],
-        ],
+  const quillRef = useRef(null);
+
+  // Upload image to Cloudinary
+  const uploadToCloudinary = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
+
+    if (!res.ok) throw new Error('Upload failed');
+    const data = await res.json();
+    return data.secure_url;
+  };
+
+  // Custom image handler
+  const imageHandler = useCallback(() => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      // Validate file
+      if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Image must be less than 10MB');
+        return;
+      }
+
+      const quill = quillRef.current?.getEditor();
+      if (!quill) return;
+
+      // Save cursor position
+      const range = quill.getSelection(true);
+
+      // Show uploading placeholder
+      quill.insertText(range.index, 'Uploading image...', { italic: true, color: '#999' });
+
+      try {
+        const url = await uploadToCloudinary(file);
+
+        // Remove placeholder and insert image
+        quill.deleteText(range.index, 'Uploading image...'.length);
+        quill.insertEmbed(range.index, 'image', url);
+        quill.setSelection(range.index + 1);
+      } catch (error) {
+        console.error('Image upload failed:', error);
+        quill.deleteText(range.index, 'Uploading image...'.length);
+        alert('Failed to upload image. Please try again.');
+      }
+    };
+  }, []);
+
+  const modules = {
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        [{ indent: '-1' }, { indent: '+1' }],
+        [{ align: [] }],
+        ['blockquote', 'code-block'],
+        ['link', 'image'],
+        ['clean'],
+      ],
+      handlers: {
+        image: imageHandler,
       },
-      clipboard: {
-        matchVisual: false,
-      },
-    }),
-    []
-  );
+    },
+    clipboard: {
+      matchVisual: false,
+    },
+  };
 
   const formats = [
     'header',
@@ -47,11 +113,13 @@ const RichTextEditor = ({ value, onChange, placeholder = 'Write your content her
     'blockquote',
     'code-block',
     'link',
+    'image',
   ];
 
   return (
     <div className="rich-text-editor-wrapper">
       <ReactQuill
+        ref={quillRef}
         theme="snow"
         value={value}
         onChange={onChange}
@@ -165,6 +233,13 @@ const RichTextEditor = ({ value, onChange, placeholder = 'Write your content her
 
         .rich-text-editor .ql-editor a:hover {
           color: #1E3A5F;
+        }
+
+        .rich-text-editor .ql-editor img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          margin: 1rem 0;
         }
 
         .rich-text-editor .ql-snow .ql-picker.ql-header {
