@@ -129,6 +129,22 @@ const RichTextEditor = ({ value, onChange, placeholder = 'Write your content her
         className="rich-text-editor"
       />
       <style jsx global>{`
+      .rich-text-editor .ql-editor {
+          min-height: 220px;
+          padding: 1rem;
+          line-height: 1.75;
+          hyphens: none !important;
+          word-break: normal !important;
+          overflow-wrap: normal !important;
+          overflow-x: hidden;
+        }
+
+        .rich-text-editor .ql-editor img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 8px;
+          margin: 1rem 0;
+        }
         .rich-text-editor-wrapper {
           width: 100%;
         }

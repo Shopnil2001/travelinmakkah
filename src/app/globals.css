@@ -299,6 +299,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-charcoal-light);
   font-size: 1.125rem;
   line-height: 1.9;
+  white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }

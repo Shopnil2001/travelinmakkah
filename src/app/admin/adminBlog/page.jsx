@@ -86,34 +86,46 @@ const AdminBlogPage = () => {
     setEditingCategoryId(null);
   };
 
+const cleanContent = (html) => {
+  if (!html) return '';
+
+  return html
+    .replace(/&nbsp;/gi, ' ')   // convert non-breaking space
+    .replace(/\u00A0/gi, ' ');  // also handle unicode version
+};
+
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormLoading(true);
-    setError('');
+  e.preventDefault();
+  setFormLoading(true);
+  setError('');
 
-    const payload = {
-      ...formData,
-      tags: formData.tags
-        .split(',')
-        .map(t => t.trim())
-        .filter(Boolean),
-    };
-
-    try {
-      if (editingId) {
-        await api.put(`/blogs/${editingId}`, payload);
-      } else {
-        await api.post('/blogs', payload);
-      }
-
-      resetForm();
-      loadBlogs();
-    } catch {
-      setError('Error saving blog');
-    } finally {
-      setFormLoading(false);
-    }
+  const cleanedContent = cleanContent(formData.content);
+  const payload = {
+    ...formData,
+      content: cleanedContent,
+    tags: formData.tags
+      .split(',')
+      .map(t => t.trim())
+      .filter(Boolean),
   };
+
+  try {
+    if (editingId) {
+      await api.put(`/blogs/${editingId}`, payload);
+    } else {
+      await api.post('/blogs', payload);
+    }
+
+    resetForm();
+    loadBlogs();
+  } catch {
+    setError('Error saving blog');
+  } finally {
+    setFormLoading(false);
+  }
+};
+
 
   const handleCategorySubmit = async (e) => {
     e.preventDefault();
