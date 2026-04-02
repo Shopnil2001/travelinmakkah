@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import api from "@/lib/api";
 import LoadingSpinner from "../../../../components/Loading";
-import { Loader2, CheckCircle, AlertCircle, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Loader2, CheckCircle, AlertCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { CategoryIcon } from "../../../../components/CategoryIcons";
 
 const POSTS_PER_PAGE = 12;
@@ -684,27 +684,6 @@ const BlogPage = () => {
                           {blog.author}
                         </span>
                       </div>
-
-                      {/* Rating Display */}
-                      {blog.ratingStats && blog.ratingStats.totalRatings > 0 && (
-                        <div className="flex items-center gap-1.5 mb-3">
-                          <div className="flex items-center gap-0.5">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <Star
-                                key={star}
-                                className={`w-3.5 h-3.5 ${
-                                  star <= Math.round(blog.ratingStats.averageRating)
-                                    ? "text-[#C9A962] fill-[#C9A962]"
-                                    : "text-gray-300"
-                                }`}
-                              />
-                            ))}
-                          </div>
-                          <span className="text-xs text-[#64748B] ml-1">
-                            {blog.ratingStats.averageRating.toFixed(1)} ({blog.ratingStats.totalRatings})
-                          </span>
-                        </div>
-                      )}
 
                       {/* Title */}
                       <h2 className="text-xl font-serif font-medium text-[#1E293B] group-hover:text-[#1E3A5F] transition-colors duration-300 line-clamp-2 leading-relaxed">

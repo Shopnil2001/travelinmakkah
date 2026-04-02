@@ -4,77 +4,16 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import api from '@/lib/api';
-import { ArrowLeft, Calendar, User, Tag, Share2, BookOpen, Star } from 'lucide-react';
-import StarRating from '../../../components/ui/StarRating';
+import { ArrowLeft, Calendar, User, Tag, Share2, BookOpen } from 'lucide-react';
 
 const BlogDetailsClient = ({ blog: initialBlog }) => {
   const router = useRouter();
   const [blog] = useState(initialBlog);
   const id = blog?._id || blog?.id;
 
-  // Rating state
-  const [ratingData, setRatingData] = useState({
-    averageRating: 0,
-    totalRatings: 0,
-    hasRated: false,
-    userRating: null
-  });
-  const [ratingLoading, setRatingLoading] = useState(false);
-  const [ratingMessage, setRatingMessage] = useState({ type: '', text: '' });
-
-  // Fetch rating data
   useEffect(() => {
-    const fetchRating = async () => {
-      if (!id) return;
-      try {
-        const res = await api.get(`/blogs/${id}/rating`);
-        if (res.data.success) {
-          setRatingData({
-            averageRating: res.data.averageRating,
-            totalRatings: res.data.totalRatings,
-            hasRated: res.data.hasRated,
-            userRating: res.data.userRating
-          });
-        }
-      } catch (err) {
-        console.error('Error fetching rating:', err);
-      }
-    };
-    fetchRating();
-  }, [id]);
-
-  // Handle rating submission
-  const handleRate = async (rating) => {
-    setRatingLoading(true);
-    setRatingMessage({ type: '', text: '' });
-
-    try {
-      const res = await api.post(`/blogs/${id}/rate`, { rating });
-      if (res.data.success) {
-        setRatingData(prev => ({
-          ...prev,
-          averageRating: res.data.averageRating,
-          totalRatings: res.data.totalRatings,
-          hasRated: true,
-          userRating: rating
-        }));
-        setRatingMessage({
-          type: 'success',
-          text: 'Thank you for your rating!'
-        });
-      }
-    } catch (err) {
-      const errorMsg = err.response?.data?.message || 'Failed to submit rating';
-      setRatingMessage({
-        type: 'error',
-        text: errorMsg
-      });
-    } finally {
-      setRatingLoading(false);
-      // Clear message after 5 seconds
-      setTimeout(() => setRatingMessage({ type: '', text: '' }), 5000);
-    }
-  };
+    // Any other initialization logic can go here
+  }, []);
 
   // Generate JSON-LD structured data for SEO
   const generateStructuredData = () => {
@@ -96,17 +35,6 @@ const BlogDetailsClient = ({ blog: initialBlog }) => {
         "name": "TravelInMakkah"
       }
     };
-
-    // Add aggregate rating if there are ratings
-    if (ratingData.totalRatings > 0) {
-      structuredData.aggregateRating = {
-        "@type": "AggregateRating",
-        "ratingValue": ratingData.averageRating.toFixed(1),
-        "bestRating": "5",
-        "worstRating": "1",
-        "ratingCount": ratingData.totalRatings.toString()
-      };
-    }
 
     return structuredData;
   };
@@ -290,46 +218,6 @@ const BlogDetailsClient = ({ blog: initialBlog }) => {
               </div>
             </div>
           )}
-
-          {/* Rating Section */}
-          <div className="mt-12 pt-8 border-t border-[#F1F5F9]">
-            <div className="flex items-center gap-3 mb-4">
-              <Star className="w-5 h-5 text-[#1E3A5F]" />
-              <span className="text-sm font-medium text-[#1E3A5F] tracking-wide uppercase">Rate This Article</span>
-            </div>
-
-            <div className="bg-[#F8FAFC] rounded-2xl p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-                <div className="flex-1">
-                  <p className="text-[#475569] text-sm mb-3">
-                    {ratingData.hasRated
-                      ? 'Thank you for rating this article!'
-                      : 'Did you find this article helpful? Let us know!'}
-                  </p>
-                  <StarRating
-                    rating={ratingData.averageRating}
-                    totalRatings={ratingData.totalRatings}
-                    interactive={!ratingData.hasRated}
-                    onRate={handleRate}
-                    hasRated={ratingData.hasRated}
-                    userRating={ratingData.userRating}
-                    loading={ratingLoading}
-                    size="lg"
-                  />
-                </div>
-
-                {ratingMessage.text && (
-                  <div className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                    ratingMessage.type === 'success'
-                      ? 'bg-green-100 text-green-700'
-                      : 'bg-red-100 text-red-700'
-                  }`}>
-                    {ratingMessage.text}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
 
           {/* Share Section */}
           <div className="mt-12 pt-8 border-t border-[#F1F5F9]">
